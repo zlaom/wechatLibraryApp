@@ -1,0 +1,30 @@
+
+<!--library.wxml-->
+<template name="sort">
+  <view class="sort" catchtap="sortDetail">
+    <view class="book">
+      <image src="{{cover}}"></image>
+    </view>
+    <view class="sortName">{{sortName}}</view>
+    <view class="bookNum">共{{num}}册..</view>
+  </view>
+</template>
+<view class="container">
+  <view class="search">
+    <view class="searchInput">
+      <input placeholder="书目搜索" type="text" />
+    </view>
+    <view class="scanCode">
+      <image src="../../images/scanCode.png"></image>
+    </view>
+    <view class="searchTap">
+      <image src="../../images/search.png"></image>
+    </view>
+  </view>
+  <view class="sortTitle">分类</view>
+  <view class="sortBox">
+    <block wx:for="{{sorts}}" wx:key="*this">
+      <template is="sort" data="{{...item}}" />
+    </block>
+  </view>
+</view>

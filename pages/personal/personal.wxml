@@ -1,0 +1,51 @@
+
+<!--personal.wxml-->
+<template name="book">
+  <view class="book" id="book-{{id}}" catchtap="bookDetail">
+    <image src="{{cover}}"></image>
+    <view> {{title}} </view>
+  </view>
+</template>
+<view class="container">
+  <view class="userMessage">
+    <view class="userIcon">
+      <Image src="{{userInfo.avatarUrl}}" background-size="cover"></Image>
+    </view>
+    <view class="userID">{{userInfo.nickName}}</view>
+    <view class="userAir"></view>
+    <view class="userRemind">
+      <Image src="../../images/remindNo.png"></Image>
+      <view>{{remind}}</view>
+    </view>
+  </view>
+  <view class="borrowBook">
+    <view class="showBox">
+      <view class="showTitle">已借</view>
+      <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
+        <block wx:for="{{borrowBook}}">
+          <template is="book" data="{{...item}}" />
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="reserverBook">
+    <view class="showBox">
+      <view class="showTitle">预订</view>
+      <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
+        <block wx:for="{{reserverBook}}" >
+          <template is="book" data="{{...item}}" />
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="recommendBook">
+    <view class="showBox">
+      <view class="showTitle">推荐</view>
+      <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
+        <block wx:for="{{recommendBook}}">
+          <template is="book" data="{{...item}}" />
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+</view>

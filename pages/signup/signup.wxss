@@ -1,0 +1,29 @@
+.container{
+margin:0rpx;
+padding-top:160rpx;
+}
+.page_hd{
+margin:0;
+}
+.app_icon image{
+width:225rpx;
+height:225rpx;
+border-radius: 50%;
+}
+.app_icon{
+margin:50rpx auto;
+width:225rpx;
+height:225rpx;
+
+}
+.temp{
+width:400rpx;
+height:10rpx;
+}
+.section{
+width:400rpx;
+height:50rpx;
+font-size:35rpx;
+margin:50rpx auto;
+border-bottom:3rpx solid #2ecc71;
+}

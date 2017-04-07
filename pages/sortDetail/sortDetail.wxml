@@ -1,0 +1,25 @@
+
+<!--sortDetail.wxml-->
+<template name="oneBook">
+  <view class="oneBook" catchtap="bookDetail">
+    <view class="book">
+      <image src="{{cover}}"></image>
+    </view>
+    <view class="bookSummary">
+      <view class="sortName">{{bookName}}</view>
+      <view class="bookAbstract">简介：{{bookAbstract}}</view>
+      <view class="bookStatus">
+        <view>馆藏：{{bookNum}}</view>
+        <view>可借：{{canBorrow}}</view>
+      </view>
+    </view>
+  </view>
+</template>
+<view class="container">
+  <view class="sortTitle">{{sort}}</view>
+  <view class="booksBox">
+    <block wx:for="{{books}}">
+      <template is="oneBook" data="{{...item}}" />
+    </block>
+  </view>
+</view>

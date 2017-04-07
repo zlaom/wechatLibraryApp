@@ -1,0 +1,19 @@
+
+<!--sortDetail.wxml-->
+<view class="container">
+  <view class="booksBox">
+    <view class="oneBook" catchtap="bookDetail">
+      <view class="book">
+        <image src="{{cover}}"></image>
+      </view>
+      <view class="bookSummary">
+        <view class="sortName">{{bookName}}</view>
+        <view class="bookStatus">
+          <view>馆藏：{{bookNum}}</view>
+          <view>可借：{{canBorrow}}</view>
+        </view>
+      </view>
+      <view class="bookAbstract">简介：{{bookAbstract}}</view>
+    </view>
+  </view>
+</view>

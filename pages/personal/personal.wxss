@@ -1,0 +1,126 @@
+/**personal.wxss**/
+
+page {
+  background-color: #f8f8f8;
+  font-family: '微软雅黑';
+}
+
+/*主体框架*/
+
+.userMessage {
+  padding: 0;
+  margin: 20rpx 10rpx 10rpx 10rpx;
+  width: 720rpx;
+  height: 150rpx;
+  /*border: 1rpx solid black;*/
+  background-color: #fff;
+  display: flex;
+}
+
+.borrowBook {
+  width: 720rpx;
+  height: 300rpx;
+  background-color: #fff;
+  margin: 8rpx auto;
+  overflow: hidden;
+}
+
+.reserverBook {
+  width: 720rpx;
+  height: 300rpx;
+  background-color: #fff;
+  margin: 8rpx auto;
+  overflow: hidden;
+}
+
+.recommendBook {
+  width: 720rpx;
+  height: 300rpx;
+  background-color: #fff;
+  margin: 8rpx auto;
+  overflow: hidden;
+}
+
+/*userMessage*/
+
+.userIcon {
+  margin: 0;
+  width: 100rpx;
+  height: 100rpx;
+  padding: 25rpx;
+}
+
+.userIcon image {
+  margin: 0;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+
+.userID {
+  width: 200rpx;
+  height: 150rpx;
+  font-size: 30rpx;
+  text-align: left;
+  line-height: 150rpx;
+}
+
+.userAir {
+  width: 200rpx;
+  height: 150rpx;
+}
+
+.userRemind {
+  width: 150rpx;
+  height: 150rpx;
+}
+
+.userRemind Image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 35rpx 50rpx 0 50rpx;
+}
+.userRemind view{
+  text-align: center;
+  font-size: 24rpx;
+}
+
+/*borrowBook*/
+
+.showTitle {
+  width: 100%;
+  height: 30rpx;
+  font-size: 30rpx;
+  margin: 5rpx;
+}
+
+.showBox {
+  width: 685rpx;
+  margin: 0 20rpx 0 15rpx;
+  overflow: hidden;
+}
+
+.showBook {
+  height: 260rpx;
+  width: 100%;
+  white-space: nowrap;
+}
+
+.book {
+  display: inline-block;
+  height: 240rpx;
+  width: 140rpx;
+  margin: 10rpx;
+}
+
+.book image {
+  width: 140rpx;
+  height: 200rpx;
+}
+
+.book view {
+  width: 140rpx;
+  font-size: 24rpx;
+  text-align: center;
+  overflow: hidden;
+}

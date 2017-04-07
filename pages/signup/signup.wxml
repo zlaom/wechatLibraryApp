@@ -1,0 +1,24 @@
+
+<!--signup-->
+<view class="container">
+  <view class="page_hd">
+    <view class="app_icon">
+      <Image src="{{userInfo.avatarUrl}}" background-size="cover"></Image>
+    </view>
+  </view>
+  <view>
+    <view class="section">
+      <input type="number" placeholder="电话" bindinput="bindphone" auto-focus />
+    </view>
+    <view class="section">
+      <input type="idcard" placeholder="身份证" bindinput="bindidcard" />
+    </view>
+    <view class="temp"></view>
+    <view class="section">
+      <view class="button">
+        <button type="text" type="primary" ontap="signup">注册</button>
+      </view>
+    </view>
+    <view class="temp"></view>
+  </view>
+</view>

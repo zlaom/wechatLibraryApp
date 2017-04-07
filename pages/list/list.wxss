@@ -1,0 +1,14 @@
+
+.container{
+    padding: 30%;
+}
+.list{
+    width: 200rpx;
+    height: 100rpx;
+    background-color: black;
+    margin: 10rpx auto;
+    color: white;
+    text-align: center;
+    font-size: 24rpx;
+    line-height: 100rpx;
+}
