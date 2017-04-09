@@ -34,7 +34,7 @@ App({
       }
     });*/
     wx.navigateTo({
-      url: '/pages/bookDetail/bookDetail'
+      url: 'pages/list/list'
     })
   },
   getUserInfo: function (cb) {

@@ -1,0 +1,85 @@
+/**personal.wxss**/
+
+page {
+  background-color: #f8f8f8;
+  font-family: '微软雅黑';
+}
+
+/*showTitle*/
+
+.showTitle {
+  margin-top: 20rpx;
+  width: 720rpx;
+  height: 130rpx;
+  font-size: 40rpx;
+  background-color: #fff;
+  display: flex;
+}
+
+.showTitle image {
+  width: 60rpx;
+  height: 60rpx;
+  margin: 30rpx 0 0 30rpx;
+}
+
+.showTitle view {
+  width: 600rpx;
+  height: 130rpx;
+  font-size: 36rpx;
+  line-height: 130rpx;
+  text-align: right;
+  color: #2ecc71;
+}
+
+/*new*/
+
+.new {
+  width: 720rpx;
+  margin-top: 20rpx;
+  background-color: #fff;
+}
+
+.newHead {
+  width: 720rpx;
+  display: flex;
+  height: 60rpx;
+  color: #8f8f8f;
+}
+
+.newFrom {
+  width: 360rpx;
+  height: 60rpx;
+  padding-left: 15rpx;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  text-align: left;
+}
+
+.newTime {
+  width: 360rpx;
+  height: 50rpx;
+  padding-right: 20rpx;
+  font-size: 24rpx;
+  line-height: 50rpx;
+  text-align: right;
+}
+
+.content {
+  width: 720rpx;
+  height: auto;
+  display: flex;
+}
+
+.newData {
+  margin-left: 20rpx;
+  width: 620rpx;
+  height: auto;
+  font-size: 24rpx;
+  padding-bottom: 20rpx;
+}
+
+.content image {
+  margin: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+}

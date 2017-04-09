@@ -1,23 +1,29 @@
 
 <!--personal.wxml-->
 <template name="book">
-  <view class="book" id="book-{{id}}" catchtap="bookDetail">
+  <view class="book" id="{{id}}" data-hi="{{id}}" catchtap="bookDetail">
     <image src="{{cover}}"></image>
     <view> {{title}} </view>
   </view>
 </template>
+
+<!--主体框架-->
 <view class="container">
+
+  <!--用户信息：头像和消息数-->
   <view class="userMessage">
-    <view class="userIcon">
+    <view class="userIcon" catchtap="personDetail">
       <Image src="{{userInfo.avatarUrl}}" background-size="cover"></Image>
     </view>
-    <view class="userID">{{userInfo.nickName}}</view>
+    <view class="userID" catchtap="personDetail">{{userInfo.nickName}}</view>
     <view class="userAir"></view>
-    <view class="userRemind">
+    <view class="userRemind" catchtap="news">
       <Image src="../../images/remindNo.png"></Image>
       <view>{{remind}}</view>
     </view>
   </view>
+
+  <!--已借-->
   <view class="borrowBook">
     <view class="showBox">
       <view class="showTitle">已借</view>
@@ -28,16 +34,20 @@
       </scroll-view>
     </view>
   </view>
+
+  <!--预订-->
   <view class="reserverBook">
     <view class="showBox">
       <view class="showTitle">预订</view>
       <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
-        <block wx:for="{{reserverBook}}" >
+        <block wx:for="{{reserverBook}}">
           <template is="book" data="{{...item}}" />
         </block>
       </scroll-view>
     </view>
   </view>
+
+  <!--推荐-->
   <view class="recommendBook">
     <view class="showBox">
       <view class="showTitle">推荐</view>
@@ -48,4 +58,5 @@
       </scroll-view>
     </view>
   </view>
+  <view id="tapTest" data-hi="WeChat" bindtap="tapName"> Click me! </view>
 </view>

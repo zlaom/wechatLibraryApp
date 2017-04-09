@@ -1,0 +1,23 @@
+<template name="new">
+  <view class="new">
+    <view class="newHead">
+      <view class="newFrom">{{author}}</view>
+      <view class="newTime">{{newTime}}</view>
+    </view>
+    <view class="content">
+      <text class="newData">{{newData}}</text>
+      <view catchtap="deleteNew">
+        <Image src="../../images/delete.png"></Image>
+      </view>
+    </view>
+  </view>
+</template>
+<view class="container">
+  <view class="showTitle">
+    <Image src="../../images/remindNo.png"></Image>
+    <view>{{newsNum}}</view>
+  </view>
+  <block wx:for="{{news}}">
+    <template is="new" data="{{...item}}"></template>
+  </block>
+</view>

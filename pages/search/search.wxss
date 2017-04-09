@@ -1,0 +1,109 @@
+/**personal.wxss**/
+
+page {
+  background-color: #f8f8f8;
+  font-family: '微软雅黑';
+}
+
+/*主体框架*/
+
+.search {
+  margin: 20rpx 10rpx 10rpx 10rpx;
+  width: 720rpx;
+  height: 80rpx;
+  background-color: #fff;
+  display: flex;
+}
+
+.booksBox {
+  width: 720rpx;
+  background-color: #fff;
+}
+
+/*搜索框*/
+
+.search input {
+  background-color: #f8f8f8;
+  height: 50rpx;
+  width: 500rpx;
+  margin: 15rpx;
+  border-radius: 25rpx;
+  font-size: 30rpx;
+  padding-left: 25rpx;
+}
+
+.scanCode {
+  height: 80rpx;
+  width: 100rpx;
+}
+
+.scanCode image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 15rpx;
+}
+
+.searchTap {
+  height: 80rpx;
+  width: 100rpx;
+}
+
+.searchTap image {
+  width: 50rpx;
+  height: 50rpx;
+  margin: 15rpx;
+}
+
+/*书籍栏来自sortDetail*/
+
+.oneBook {
+  display: flex;
+  height: 220rpx;
+  border-bottom: 2rpx solid #f8f8f8;
+}
+
+.book {
+  height: 200rpx;
+  width: 140rpx;
+  margin: 10rpx;
+}
+
+.book image {
+  width: 140rpx;
+  height: 200rpx;
+}
+
+.bookSummary {
+  width: 520rpx;
+  height: 200rpx;
+  margin: 10rpx;
+}
+
+.sortName {
+  height: 50rpx;
+  line-height: 50rpx;
+  width: 520rpx;
+  text-align: left;
+  font-size: 30rpx;
+}
+
+.bookAbstract {
+  height: 100rpx;
+  width: 520rpx;
+  overflow: hidden;
+  font-size: 24rpx;
+  color: #8f8f8f;
+  margin: 5rpx;
+}
+
+.bookStatus {
+  height: 40rpx;
+  display: flex;
+}
+
+.bookStatus view {
+  color: #8f8f8f;
+  width: 120rpx;
+  font-size: 22rpx;
+  text-align: left;
+}

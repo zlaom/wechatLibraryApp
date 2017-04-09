@@ -13,5 +13,10 @@ Page({
         wx.navigateTo({
             url: '/pages/sortDetail/sortDetail'
         })
+    },
+    bookSearch:function(e){
+         wx.navigateTo({
+            url: '/pages/search/search'
+        })
     }
 })

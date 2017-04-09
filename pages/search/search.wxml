@@ -1,0 +1,37 @@
+<!--单本书模板-->
+<template name="oneBook">
+  <view class="oneBook" catchtap="bookDetail">
+    <view class="book">
+      <image src="{{cover}}"></image>
+    </view>
+    <view class="bookSummary">
+      <view class="sortName">{{bookName}}</view>
+      <view class="bookAbstract">简介：{{bookAbstract}}</view>
+      <view class="bookStatus">
+        <view>馆藏：{{bookNum}}</view>
+        <view>可借：{{canBorrow}}</view>
+      </view>
+    </view>
+  </view>
+</template>
+<!--主体-->
+<view class="container">
+<!--搜索栏-->
+  <view class="search">
+    <view class="searchInput">
+      <input placeholder="书目搜索" type="text" />
+    </view>
+    <view class="scanCode">
+      <image src="../../images/scanCode.png"></image>
+    </view>
+    <view class="searchTap" catchtap="bookSearch">
+      <image src="../../images/search.png"></image>
+    </view>
+  </view>
+  <!--结果栏-->
+   <view class="booksBox">
+    <block wx:for="{{searchResult}}">
+      <template is="oneBook" data="{{...item}}" />
+    </block>
+  </view>
+</view>

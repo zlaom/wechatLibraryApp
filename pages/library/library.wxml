@@ -17,7 +17,7 @@
     <view class="scanCode">
       <image src="../../images/scanCode.png"></image>
     </view>
-    <view class="searchTap">
+    <view class="searchTap" catchtap="bookSearch">
       <image src="../../images/search.png"></image>
     </view>
   </view>

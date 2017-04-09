@@ -1,19 +1,49 @@
 
 <!--sortDetail.wxml-->
+<template name="relatedBook">
+  <view class="relatedBook" id="book-{{id}}" catchtap="bookDetail">
+    <image src="{{cover}}"></image>
+    <view> {{title}} </view>
+  </view>
+</template>
 <view class="container">
-  <view class="booksBox">
+  <view class="bookDetail">
     <view class="oneBook" catchtap="bookDetail">
       <view class="book">
-        <image src="{{cover}}"></image>
+        <image src="{{book.cover}}"></image>
       </view>
       <view class="bookSummary">
-        <view class="sortName">{{bookName}}</view>
+        <view class="bookMessages">
+          <view class="booktName">{{book.bookName}}</view>
+          <view class="bookAuthor">作者：{{book.bookAuthor}}</view>
+          <view class=" bookPress">出版社：{{book. bookPress}}</view>
+          <view class="bookSort">类别：{{book.sort}}</view>
+        </view>
         <view class="bookStatus">
-          <view>馆藏：{{bookNum}}</view>
-          <view>可借：{{canBorrow}}</view>
+          <view>馆藏：{{book.bookNum}}</view>
+          <view>可借：{{book.canBorrow}}</view>
         </view>
       </view>
-      <view class="bookAbstract">简介：{{bookAbstract}}</view>
     </view>
+    <view class="bookAbstract">
+      <view>简介：</view>
+      <view>{{book.bookAbstract}}</view>
+    </view>
+  </view>
+  <view class="relatedBooks">
+    <view class="showBox">
+      <view class="showTitle">相关书籍</view>
+      <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
+        <block wx:for="{{relatedBooks}}">
+          <template is="relatedBook" data="{{...item}}" />
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+  <view class="bookAction">
+    <button type="text" type="primary" ontap="signup">预约</button>
+  </view>
+  <view class="bookAction">
+    <button type="text" type="default" catchtap="returnPersonal">返回个人中心</button>
   </view>
 </view>

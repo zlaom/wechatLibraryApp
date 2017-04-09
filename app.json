@@ -6,7 +6,10 @@
     "pages/signup/signup",
     "pages/list/list",
     "pages/bookDetail/bookDetail",
-    "pages/sortDetail/sortDetail"
+    "pages/sortDetail/sortDetail",
+    "pages/personDetail/personDetail",
+    "pages/news/news",
+    "pages/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",

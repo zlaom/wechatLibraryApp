@@ -42,9 +42,22 @@ Page({
     })
   },
   bookDetail: function (e) {
-    console.log(e.detail);
+    console.log(e);
     wx.navigateTo({
       url: '/pages/bookDetail/bookDetail'
     })
+  },
+  personDetail: function (e) {
+    wx.navigateTo({
+      url: '/pages/personDetail/personDetail'
+    })
+  },
+  news: function (e) {
+    wx.navigateTo({
+      url: '/pages/news/news'
+    })
+  },
+  tapName: function (event) {
+    console.log(event)
   }
 })
