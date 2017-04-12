@@ -33,8 +33,8 @@ App({
         }
       }
     });*/
-    wx.navigateTo({
-      url: 'pages/list/list'
+    wx.redirectTo({
+      url: 'pages/personal/personal'
     })
   },
   getUserInfo: function (cb) {

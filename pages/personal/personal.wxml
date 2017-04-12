@@ -58,5 +58,4 @@
       </scroll-view>
     </view>
   </view>
-  <view id="tapTest" data-hi="WeChat" bindtap="tapName"> Click me! </view>
 </view>

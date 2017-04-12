@@ -38,7 +38,7 @@ Page({
         })
         console.log("data:" + this.data.phone + " " + this.data.idcard)
         wx.request({
-            url: 'http://localhost:3000/signup', //仅为示例，并非真实的接口地址
+            url: 'https://localhost:3000/signup', //仅为示例，并非真实的接口地址
             data: {
                 userId: 'none',
                 phone: this.data.phone,
@@ -53,10 +53,11 @@ Page({
                 console.log(res.data)
                 if (res.data == 'success') {
                     wx.switchTab({
-                        url: '/pages/community/community'
+                        url: '/pages/personal/personal'
                     })
-                    
-                }else{
+                    wx.hideLoading();
+
+                } else {
                     wx.hideLoading();
                     wx.showModal({
                         title: '提示',

@@ -19,12 +19,15 @@ Page({
             { id: 'book2', title: 'hello2', cover: './cover/book2.jpg' },
         ]
     },
+    onLoad: function (option) {
+        console.log(option.bookId)
+    },
     bookDetail: function (e) {
         wx.redirectTo({
             url: '/pages/bookDetail/bookDetail'
         })
     },
-    returnPersonal:function (e) {
+    returnPersonal: function (e) {
         wx.switchTab({
             url: '/pages/personal/personal'
         })

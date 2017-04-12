@@ -42,9 +42,10 @@ Page({
     })
   },
   bookDetail: function (e) {
-    console.log(e);
+    var bookId=e.currentTarget.dataset.hi;
+    console.log(bookId);
     wx.navigateTo({
-      url: '/pages/bookDetail/bookDetail'
+      url: '/pages/bookDetail/bookDetail?bookId='+bookId
     })
   },
   personDetail: function (e) {
@@ -56,8 +57,5 @@ Page({
     wx.navigateTo({
       url: '/pages/news/news'
     })
-  },
-  tapName: function (event) {
-    console.log(event)
   }
 })
