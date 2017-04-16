@@ -38,7 +38,7 @@ Page({
         })
         console.log("data:" + this.data.phone + " " + this.data.idcard)
         wx.request({
-            url: 'https://localhost:3000/signup', //仅为示例，并非真实的接口地址
+            url: 'http://localhost:3000/signup', //仅为示例，并非真实的接口地址
             data: {
                 userId: 'none',
                 phone: this.data.phone,

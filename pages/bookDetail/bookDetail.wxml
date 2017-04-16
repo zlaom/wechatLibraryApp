@@ -10,18 +10,18 @@
   <view class="bookDetail">
     <view class="oneBook" catchtap="bookDetail">
       <view class="book">
-        <image src="{{book.cover}}"></image>
+        <image src="{{book.bookCover}}"></image>
       </view>
       <view class="bookSummary">
         <view class="bookMessages">
-          <view class="booktName">{{book.bookName}}</view>
+          <view class="booktName">{{book.bookTitle}}</view>
           <view class="bookAuthor">作者：{{book.bookAuthor}}</view>
           <view class=" bookPress">出版社：{{book. bookPress}}</view>
-          <view class="bookSort">类别：{{book.sort}}</view>
+          <view class="bookSort">类别：{{book.bookSorts}}</view>
         </view>
         <view class="bookStatus">
           <view>馆藏：{{book.bookNum}}</view>
-          <view>可借：{{book.canBorrow}}</view>
+          <view>可借：{{book.bookCan}}</view>
         </view>
       </view>
     </view>
