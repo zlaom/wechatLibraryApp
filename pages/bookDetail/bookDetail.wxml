@@ -1,9 +1,9 @@
 
 <!--sortDetail.wxml-->
 <template name="relatedBook">
-  <view class="relatedBook" id="book-{{id}}" catchtap="bookDetail">
-    <image src="{{cover}}"></image>
-    <view> {{title}} </view>
+  <view class="relatedBook" data-bookId="{{bookId}}" catchtap="bookDetail">
+    <image src="{{bookCover}}"></image>
+    <view> {{bookTitle}} </view>
   </view>
 </template>
 <view class="container">
@@ -41,7 +41,12 @@
     </view>
   </view>
   <view class="bookAction">
-    <button type="text" type="primary" ontap="signup">预约</button>
+    <view wx:if="{{ifrelated == 0}}">
+      <button type="text" type="primary" data-bookId="{{book.bookId}}" ontap="reserve">预约</button>
+    </view>
+    <view wx:elif="{{ifrelated == 1}}">
+      <button type="text" type="default" data-bookId="{{book.bookId}}" ontap="cancelReserve">取消预约</button>
+    </view>
   </view>
   <view class="bookAction">
     <button type="text" type="default" catchtap="returnPersonal">返回个人中心</button>
