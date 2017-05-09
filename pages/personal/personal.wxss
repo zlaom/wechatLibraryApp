@@ -25,7 +25,7 @@ page {
   overflow: hidden;
 }
 
-.reserverBook {
+.reserveBook {
   width: 720rpx;
   height: 300rpx;
   background-color: #fff;

@@ -16,7 +16,7 @@
       <view class="showTitle">个人设置</view>
       <view class="recommendSet">
         <view class="switch">个人中心书籍推荐</view>
-        <switch checked bindchange="switch1Change" />
+        <switch checked="{{recommend}}" bindchange="switchChange" />
       </view>
     </view>
   </view>

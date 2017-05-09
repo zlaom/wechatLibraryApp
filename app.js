@@ -34,7 +34,7 @@ App({
       }
     });*/
     wx.redirectTo({
-      url: 'pages/bookDetail/bookDetail'
+      url: 'pages/personal/personal'
     })
   },
   getUserInfo: function (cb) {

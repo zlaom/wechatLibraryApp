@@ -36,11 +36,11 @@
   </view>
 
   <!--预订-->
-  <view class="reserverBook">
+  <view class="reserveBook">
     <view class="showBox">
       <view class="showTitle">预订</view>
       <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
-        <block wx:for="{{reserverBook}}">
+        <block wx:for="{{reserveBook}}">
           <template is="book" data="{{...item}}" />
         </block>
       </scroll-view>
@@ -48,7 +48,7 @@
   </view>
 
   <!--推荐-->
-  <view class="recommendBook">
+  <view class="recommendBook" wx:if="{{recommend}}">
     <view class="showBox">
       <view class="showTitle">推荐</view>
       <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
