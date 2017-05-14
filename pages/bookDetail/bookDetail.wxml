@@ -41,11 +41,14 @@
     </view>
   </view>
   <view class="bookAction">
-    <view wx:if="{{ifrelated == 0}}">
+    <view wx:if="{{bookStatus == 'none'}}">
       <button type="text" type="primary" data-bookId="{{book.bookId}}" ontap="reserve">预约</button>
     </view>
-    <view wx:elif="{{ifrelated == 1}}">
+    <view wx:elif="{{bookStatus == 'reserve'}}">
       <button type="text" type="default" data-bookId="{{book.bookId}}" ontap="cancelReserve">取消预约</button>
+    </view>
+    <view wx:elif="{{bookStatus == 'borrow'}}">
+      <button type="text" type="default" data-bookId="{{book.bookId}}" >已借</button>
     </view>
   </view>
   <view class="bookAction">

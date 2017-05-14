@@ -12,7 +12,7 @@
       <view class="IdCard">身份证:{{idCard}}</view>
       <view class="reSet"></view>
     </view>
-    <view class="phoneAndId">
+    <view class="setting" wx:if="{{setting}}">
       <view class="showTitle">个人设置</view>
       <view class="recommendSet">
         <view class="switch">个人中心书籍推荐</view>

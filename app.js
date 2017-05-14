@@ -5,7 +5,20 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
+    wx.connectSocket({
+      url: 'http://localhost:3000',
+      data: {
+        x: '',
+        y: ''
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      method: "GET"
+    }),
+      wx.onSocketOpen(function (res) {
+        console.log('WebSocket连接已打开！')
+      }),
     /*wx.login({
       success: function (res) {
         var that = this

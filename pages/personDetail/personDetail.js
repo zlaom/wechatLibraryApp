@@ -3,15 +3,16 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
-    phone:'',
-    idCard:'',
-    test:[],
-    recommend:true
+    phone: '',
+    idCard: '',
+    test: [],
+    setting: false,
+    recommend: true
   },
-  
-   onLoad: function () {
+
+  onLoad: function () {
     console.log('onLoad')
-    var userId='laogao';
+    var userId = 'laogao';
     var that = this
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
@@ -20,70 +21,73 @@ Page({
         userInfo: userInfo
       })
     });
-    console.log("????")
     wx.request({
-      url: 'http://127.0.0.1:3000/personal/personDetail?userId='+userId,
+      url: 'http://127.0.0.1:3000/personal/personDetail?userId=' + userId,
       data: {},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
-      success: function(res){
+      success: function (res) {
         var user = res.data;
         that.setData({
-          phone:user.phone,
-          idCard:user.idCard
+          phone: user.phone,
+          idCard: user.idCard
         })
         // success
       },
-      fail: function() {
+      fail: function () {
         // fail
       },
-      complete: function() {        
+      complete: function () {
         // complete
       }
     })
     wx.getStorage({
       key: 'recommend',
-      success: function(res){
+      success: function (res) {
         that.setData({
-          recommend:res.data
+          setting: true,
+          recommend: res.data
         })
         // success
       },
-      fail: function() {
+      fail: function () {
+        that.setData({
+          setting: true,
+        })
         // fail
       },
-      complete: function() {
+      complete: function () {
         // complete
       }
     })
   },
-  switchChange:function(e){
+  switchChange: function (e) {
     var statu = e.detail.value;
-    if(statu==false){
+    if (statu == false) {
       wx.setStorage({
         key: 'recommend',
         data: false,
-        success: function(res){
+        success: function (res) {
         },
-        fail: function() {
+        fail: function () {
           // fail
         },
-        complete: function() {
+        complete: function () {
           // complete
         }
       })
     }
-    else if(statu==true){
+    else if (statu == true) {
       wx.setStorage({
         key: 'recommend',
         data: true,
-        success: function(res){
+        success: function (res) {
           // success
         },
-        fail: function() {
+        fail: function () {
           // fail
         },
-        complete: function() {
+        complete: function () {
           // complete
         }
       })

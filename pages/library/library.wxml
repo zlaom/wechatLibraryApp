@@ -1,7 +1,7 @@
 
 <!--library.wxml-->
 <template name="sort">
-  <view class="sort" catchtap="sortDetail">
+  <view class="sort" data-sort="{{sortName}}" catchtap="sortDetail">
     <view class="book">
       <image src="{{cover}}"></image>
     </view>

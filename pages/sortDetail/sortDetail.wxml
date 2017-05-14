@@ -1,7 +1,7 @@
 
 <!--sortDetail.wxml-->
 <template name="oneBook">
-  <view class="oneBook" catchtap="bookDetail">
+  <view class="oneBook" data-bookId="{{bookId}}" catchtap="bookDetail">
     <view class="book">
       <image src="{{cover}}"></image>
     </view>

@@ -1,12 +1,12 @@
 <template name="new">
-  <view class="new">
+  <view class="new" wx:if="{{ifShow==1}}">
     <view class="newHead">
-      <view class="newFrom">{{author}}</view>
-      <view class="newTime">{{newTime}}</view>
+      <view class="newFrom"> {{author}}</view>
+      <view class="newTime">{{created_at}}</view>
     </view>
     <view class="content">
-      <text class="newData">{{newData}}</text>
-      <view catchtap="deleteNew">
+      <text class="newData">{{messageData}}</text>
+      <view data-num="{{index}}"data-newId="{{_id}}" catchtap="deleteNew">
         <Image src="../../images/delete.png"></Image>
       </view>
     </view>
@@ -15,9 +15,9 @@
 <view class="container">
   <view class="showTitle">
     <Image src="../../images/remindNo.png"></Image>
-    <view>{{newsNum}}</view>
+    <view>{{messagesNum}}</view>
   </view>
-  <block wx:for="{{news}}">
-    <template is="new" data="{{...item}}"></template>
+  <block wx:for="{{messages}}">
+    <template is="new" data="{{...item,index}}"></template>
   </block>
 </view>

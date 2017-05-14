@@ -2,7 +2,7 @@ Page({
     data: {
         book: {},
         relatedBooks: [],
-        ifrelated: 0,
+        bookStatus:""
     },
     // 开启页面前
     onLoad: function(option) {
@@ -11,7 +11,8 @@ Page({
         wx.request({
             url: 'http://localhost:3000/library/bookDetail',
             data: {
-                bookId: '123'
+              bookId: option.bookId,
+              userId:"laogao"
             },
             method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
             // header: {}, // 设置请求的 header
@@ -19,7 +20,8 @@ Page({
                 console.log(res.data);
                 that.setData({
                     book: res.data.book,
-                    relatedBooks: res.data.relatedBooks
+                    relatedBooks: res.data.relatedBooks,
+                    bookStatus: res.data.bookStatus
                 })
                 // success
             },
@@ -35,8 +37,11 @@ Page({
     },
     // 获得书籍详情并更新数据
     bookDetail: function(e) {
+      console.log("even")
+      console.log(e);
+      var bookId=e.currentTarget.dataset.bookid
         wx.redirectTo({
-            url: '/pages/bookDetail/bookDetail'
+            url: '/pages/bookDetail/bookDetail?bookId='+bookId
         })
     },
     // 书籍预约
@@ -53,6 +58,7 @@ Page({
             url: 'http://localhost:3000/library/bookReserve', //仅为示例，并非真实的接口地址
             data: {
                 bookId: e.target.dataset.bookid, //设置发送到后台的bookid
+                userId:"laogao"
             },
             method: 'post',
             header: {
@@ -68,7 +74,7 @@ Page({
                         icon: 'success'
                     })
                     that.setData({
-                        ifrelated: 1,
+                      bookStatus: "reserve",
                     })
 
                 } else {
@@ -84,7 +90,7 @@ Page({
     // 取消预约
     cancelReserve: function(e) {
         var that = this;
-        console.log(e.target.dataset.bookid);
+        console.log(e);
         var that = this
         wx.showToast({
             title: '预约中',
@@ -95,6 +101,7 @@ Page({
             url: 'http://localhost:3000/library/cancelReserve', //仅为示例，并非真实的接口地址
             data: {
                 bookId: e.target.dataset.bookid, //设置发送到后台的bookid
+                userId:"laogao"
             },
             method: 'post',
             header: {
@@ -110,7 +117,7 @@ Page({
                         icon: 'success'
                     })
                     that.setData({
-                        ifrelated: 0,
+                      bookStatus: "none",
                     })
 
                 } else {
