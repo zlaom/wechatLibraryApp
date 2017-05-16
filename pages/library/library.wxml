@@ -1,4 +1,3 @@
-
 <!--library.wxml-->
 <template name="sort">
   <view class="sort" data-sort="{{sortName}}" catchtap="sortDetail">
@@ -12,7 +11,7 @@
 <view class="container">
   <view class="search">
     <view class="searchInput">
-      <input placeholder="书目搜索" type="text" />
+       <input placeholder="书目搜索" bindinput="inputSearchContent" type="text" />
     </view>
     <view class="scanCode">
       <image src="../../images/scanCode.png"></image>

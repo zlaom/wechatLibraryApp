@@ -8,7 +8,7 @@
 </template>
 <view class="container">
   <view class="bookDetail">
-    <view class="oneBook" catchtap="bookDetail">
+    <view class="oneBook" >
       <view class="book">
         <image src="{{book.bookCover}}"></image>
       </view>

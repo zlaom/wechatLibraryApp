@@ -11,7 +11,7 @@ Page({
     wx.request({
       url: 'http://localhost:3000/personal/messages',
       data:{
-        userId:"test"
+        userId:"laogao"
       },
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
@@ -52,7 +52,7 @@ Page({
     wx.request({
       url: 'http://localhost:3000/personal/delMessage', //仅为示例，并非真实的接口地址
       data: {
-        userId:'test',
+        userId:'laogao',
         messageId: e.currentTarget.dataset.newid, //设置发送到后台的数据
       },
       method: 'post',

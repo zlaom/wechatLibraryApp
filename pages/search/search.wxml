@@ -1,6 +1,6 @@
 <!--单本书模板-->
 <template name="oneBook">
-  <view class="oneBook" catchtap="bookDetail">
+  <view class="oneBook" catchtap="bookDetail" data-hi="{{id}}">
     <view class="book">
       <image src="{{cover}}"></image>
     </view>
@@ -19,7 +19,7 @@
 <!--搜索栏-->
   <view class="search">
     <view class="searchInput">
-      <input placeholder="书目搜索" type="text" />
+      <input placeholder="书目搜索"  bindinput="inputSearchContent" type="text" />
     </view>
     <view class="scanCode">
       <image src="../../images/scanCode.png"></image>

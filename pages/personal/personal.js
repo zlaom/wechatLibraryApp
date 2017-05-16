@@ -19,6 +19,7 @@ Page({
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
       success: function (res) {
+        console.log("ok");
         console.log(res);
         /*设置page.data中的borrowBook、reserveBook、recommendBook数据*/
         var borrowBook = res.data.borrowBook;
@@ -56,6 +57,7 @@ Page({
         // success0
       },
       fail: function () {
+        console.log("err");
         // fail
       },
       complete: function () {

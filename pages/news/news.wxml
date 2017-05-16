@@ -6,7 +6,7 @@
     </view>
     <view class="content">
       <text class="newData">{{messageData}}</text>
-      <view data-num="{{index}}"data-newId="{{_id}}" catchtap="deleteNew">
+      <view data-num="{{index}}" data-newId="{{_id}}" catchtap="deleteNew">
         <Image src="../../images/delete.png"></Image>
       </view>
     </view>
