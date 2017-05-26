@@ -1,7 +1,9 @@
+const host = require('../../config.js').host2;
+
 Page({
   data: {
-    messagesNum:'',
-    messages: []
+    messagesNum: '',
+    messages: [],
   },
   deleteNew: function (e) {
     console.log("delete");
@@ -9,9 +11,9 @@ Page({
   onLoad: function () {
     var that = this;
     wx.request({
-      url: 'http://localhost:3000/personal/messages',
-      data:{
-        userId:"laogao"
+      url: host + '/personal/messages',
+      data: {
+        userId: getApp().globalData.userId
       },
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
       // header: {}, // 设置请求的 header
@@ -21,7 +23,7 @@ Page({
           messagesNum: res.data.messagesNum,
           messages: res.data.messages
         })
-        
+
         // success
       },
       fail: function (res) {
@@ -32,12 +34,13 @@ Page({
         // complete
       }
     })
+
   },
-  deleteNews:function(e){
+  deleteNews: function (e) {
     console.log(e);
   },
   deleteNew: function (e) {
-    var that=this;
+    var that = this;
     console.log(e);
     var param = {};
 
@@ -46,13 +49,13 @@ Page({
     param[string] = 'changed data';
     that.setData(param);
     that.setData({
-      messagesNum: this.data.messagesNum-1
+      messagesNum: this.data.messagesNum - 1
     });
 
     wx.request({
-      url: 'http://localhost:3000/personal/delMessage', //仅为示例，并非真实的接口地址
+      url: host + '/personal/delMessage', // 删除对应消息
       data: {
-        userId:'laogao',
+        userId: getApp().globalData.userId,
         messageId: e.currentTarget.dataset.newid, //设置发送到后台的数据
       },
       method: 'post',

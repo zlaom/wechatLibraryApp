@@ -1,3 +1,5 @@
+const host = require('../../config.js').host2;
+const image = require('../../config.js').image;
 
 Page({
   data: {
@@ -32,7 +34,7 @@ Page({
         break;
     }
     wx.request({
-      url: 'http://localhost:3000/library/sortDetail',
+      url: host+'/library/sortDetail',
       data: {
         bookSort: esort
       },
@@ -42,9 +44,15 @@ Page({
         console.log(res.data)
         //获取将json对象赋值给books
         var books = res.data;
-        that.setData({
-          books: books
-        });
+        if (res.data){
+          for(var i=0;i<res.data.length;i++){
+            res.data[i].cover=image+res.data[i].cover;
+          }
+          that.setData({
+            books: books
+          });
+        }
+
 
         // success
       },

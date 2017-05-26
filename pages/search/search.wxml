@@ -16,10 +16,10 @@
 </template>
 <!--主体-->
 <view class="container">
-<!--搜索栏-->
+  <!--搜索栏-->
   <view class="search">
     <view class="searchInput">
-      <input placeholder="书目搜索"  bindinput="inputSearchContent" type="text" />
+      <input placeholder="书目搜索" bindinput="inputSearchContent" type="text" />
     </view>
     <view class="scanCode">
       <image src="../../images/scanCode.png"></image>
@@ -29,9 +29,12 @@
     </view>
   </view>
   <!--结果栏-->
-   <view class="booksBox">
-    <block wx:for="{{searchResult}}">
-      <template is="oneBook" data="{{...item}}" />
-    </block>
+  <view class="booksBox">
+    <view wx:if="{{content!=''}}">
+      <block wx:for="{{searchResult}}">
+        <template is="oneBook" data="{{...item}}" />
+      </block>
+    </view>
+    <view wx:else class="notFound">not found!</view>
   </view>
 </view>

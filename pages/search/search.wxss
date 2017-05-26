@@ -55,6 +55,12 @@ page {
 }
 
 /*书籍栏来自sortDetail*/
+.notFound{
+  background-color: #f8f8f8;
+  height: 700rpx;
+  line-height: 700rpx;
+  text-align: center;
+}
 
 .oneBook {
   display: flex;

@@ -11,12 +11,12 @@
       <view class="IdCard">电话:{{phone}}</view>
       <view class="IdCard">身份证:{{idCard}}</view>
       <view class="reSet"></view>
-    </view>
-    <view class="setting" wx:if="{{setting}}">
-      <view class="showTitle">个人设置</view>
-      <view class="recommendSet">
-        <view class="switch">个人中心书籍推荐</view>
-        <switch checked="{{recommend}}" bindchange="switchChange" />
+      <view class="setting" wx:if="{{setting}}">
+        <view class="showTitle">个人设置</view>
+        <view class="recommendSet">
+          <view class="switch">个人中心书籍推荐</view>
+          <switch checked="{{recommend}}" bindchange="switchChange" />
+        </view>
       </view>
     </view>
   </view>

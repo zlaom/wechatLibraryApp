@@ -1,3 +1,5 @@
+const host = require('../../config.js').host2;
+
 //获取应用实例
 var app = getApp()
 Page({
@@ -7,13 +9,13 @@ Page({
     idCard: '',
     test: [],
     setting: false,
-    recommend: true
+    recommend: true // 推荐显示标志位
   },
 
   onLoad: function () {
-    console.log('onLoad')
-    var userId = 'laogao';
+    var userId = getApp().globalData.userId;
     var that = this
+
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -22,10 +24,9 @@ Page({
       })
     });
     wx.request({
-      url: 'http://127.0.0.1:3000/personal/personDetail?userId=' + userId,
+      url: host+'/personal/personDetail?userId=' + userId,
       data: {},
       method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
       success: function (res) {
         var user = res.data;
         that.setData({
