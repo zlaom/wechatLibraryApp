@@ -22,9 +22,15 @@ Page({
         // header: {}, // 设置请求的 header
         success: function (res) {
           var searchResult = res.data;
-          that.setData({
-            searchResult: searchResult
-          });
+          if (searchResult!='not found'){
+            that.setData({
+              searchResult: searchResult
+            });
+          }else{
+            that.setData({
+              content: '',
+            })
+          }
           // success
         },
         fail: function () {
@@ -51,11 +57,16 @@ Page({
         method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
         success: function (res) {
-          console.log(res.data);
           var searchResult = res.data;
-          that.setData({
-            searchResult: searchResult
-          });
+          if (searchResult != 'not found') {
+            that.setData({
+              searchResult: searchResult
+            });
+          } else {
+            that.setData({
+              content: '',
+            })
+          }
           // success
         },
         fail: function () {
