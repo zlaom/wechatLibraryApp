@@ -1,4 +1,5 @@
 <!--community.wxml-->
-<view>
-community
+<view class="built">
+社区功能暂未完成，开发者正在努力搭建中^.^
+
 </view>

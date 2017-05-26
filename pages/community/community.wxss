@@ -1,0 +1,6 @@
+.built{
+  height: 400rpx;
+  text-align: center;
+  line-height: 400rpx;
+  font-size: 24rpx;
+}
