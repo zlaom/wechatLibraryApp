@@ -1,19 +1,40 @@
+const host = require('../../config.js').host2;
 Page({
   data: {
-    sorts: [
-      { cover: './cover/book1.jpg', sortName: '英语', num: '600' },
-      { cover: './cover/book3.jpg', sortName: '计算机', num: '900' },
-      { cover: './cover/book1.jpg', sortName: '科学', num: '600' },
-      { cover: './cover/book2.jpg', sortName: '历史', num: '800' },
-      { cover: './cover/book3.jpg', sortName: '文学', num: '900' }
-    ]
+    sorts: []
+  },
+
+  onShow: function () {
+    var that = this
+    wx.request({
+      url: host+'/library/Sorts',
+
+      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      // header: {}, // 设置请求的 header
+      success: function (res) {
+        console.log(res.data)
+        //获取将json对象赋值给books
+
+        var sorts = res.data;
+        that.setData({
+          sorts: sorts
+        });
+
+        // success
+      },
+      fail: function () {
+        // fail
+      },
+      complete: function () {
+        // complete
+      }
+    })
   },
   sortDetail: function (e) {
-    console.log(e);
     var sort = e.currentTarget.dataset.sort;
-    console.log(sort);
+    var esort = e.currentTarget.dataset.esort;
     wx.navigateTo({
-      url: '/pages/sortDetail/sortDetail?sort=' + sort
+      url: '/pages/sortDetail/sortDetail?sort=' + sort + "&esort=" + esort
     })
   },
   bookSearch: function () {

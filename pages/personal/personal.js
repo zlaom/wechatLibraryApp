@@ -1,6 +1,7 @@
 //personal.js
 //获取应用实例
 const host = require('../../config.js').host2;
+const image = require('../../config.js').image;
 
 var app = getApp()
 Page({
@@ -10,7 +11,7 @@ Page({
     reserveBook: [],
     recommendBook: [],
     recommend: false,
-    remind: 10
+    remind:0
   },
   onLoad: function () {
     var that = this;
@@ -45,7 +46,6 @@ Page({
             })
           }
           getApp().globalData.userId = userInfo.nickName;
-
         },
         // 没有缓存时候
         fail: function () {
@@ -93,6 +93,7 @@ Page({
             var borrowBook = res.data.borrowBook;
             var reserveBook = res.data.reserveBook;
             var recommendBook = res.data.recommendBook;
+            var remind=res.data.remind;
             var temp0 = [];
             var temp1 = [];
             var temp2 = [];
@@ -101,7 +102,7 @@ Page({
                 temp0[i] = {
                   id: borrowBook[i].bookId,
                   title: borrowBook[i].bookTitle,
-                  cover: borrowBook[i].bookCover
+                  cover: image+borrowBook[i].bookCover
                 }
               }
             }
@@ -110,7 +111,7 @@ Page({
                 temp1[i] = {
                   id: reserveBook[i].bookId,
                   title: reserveBook[i].bookTitle,
-                  cover: reserveBook[i].bookCover
+                  cover: image+reserveBook[i].bookCover
                 }
               }
             }
@@ -119,7 +120,7 @@ Page({
                 temp2[i] = {
                   id: recommendBook[i].bookId,
                   title: recommendBook[i].bookTitle,
-                  cover: recommendBook[i].bookCover
+                  cover: image+recommendBook[i].bookCover
                 }
               }
             }
@@ -127,7 +128,8 @@ Page({
             that.setData({
               borrowBook: temp0,
               reserveBook: temp1,
-              recommendBook: temp2
+              recommendBook: temp2,
+              remind: remind
             })
             // success0
           },
