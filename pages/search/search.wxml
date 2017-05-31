@@ -2,7 +2,7 @@
 <template name="oneBook">
   <view class="oneBook" catchtap="bookDetail" data-hi="{{id}}">
     <view class="book">
-      <image src="{{cover}}"></image>
+      <image src="{{cover}}" mode="widthFix" ></image>
     </view>
     <view class="bookSummary">
       <view class="sortName">{{bookName}}</view>

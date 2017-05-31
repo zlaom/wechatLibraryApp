@@ -76,7 +76,6 @@ page {
 
 .book image {
   width: 140rpx;
-  height: 200rpx;
 }
 
 .bookSummary {
