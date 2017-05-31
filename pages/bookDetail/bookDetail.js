@@ -65,8 +65,6 @@ Page({
   // 书籍预约
   reserve: function (e) {
     var that = this;
-    console.log(e);
-    var that = this
     wx.showToast({
       title: '预约中',
       icon: 'loading',
@@ -85,7 +83,7 @@ Page({
 
       success: function (res) {
         console.log(res.data)
-        if (res.data == 'success') {
+        if (res.data.message == 'success') {
           wx.hideLoading();
           wx.showToast({
             title: '预约成功',
@@ -95,6 +93,14 @@ Page({
             bookStatus: "reserve",
           })
 
+          //给了才减一
+          if (res.data.resources == 1) {
+            // 使数据中bookCan减一
+            var param = {};
+            var bookCan = "book.bookCan";
+            param[bookCan] = that.data.book.bookCan - 1;
+            that.setData(param);
+          }
         } else {
           wx.hideLoading();
           wx.showModal({
@@ -129,7 +135,7 @@ Page({
 
       success: function (res) {
         console.log(res.data)
-        if (res.data == 'success') {
+        if (res.data.message == 'success') {
           wx.hideLoading();
           wx.showToast({
             title: '取消成功',
@@ -139,6 +145,14 @@ Page({
             bookStatus: "none",
           })
 
+          // 持有才加一
+          if (res.data.resources == 1) {
+            // 使数据中bookCan加一
+            var param = {};
+            var bookCan = "book.bookCan";
+            param[bookCan] = that.data.book.bookCan + 1;
+            that.setData(param);
+          }
         } else {
           wx.hideLoading();
           wx.showModal({
