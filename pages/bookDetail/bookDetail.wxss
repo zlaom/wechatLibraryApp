@@ -29,7 +29,6 @@ page {
 
 .book image {
   width: 210rpx;
-  height: 300rpx;
 }
 
 .bookSummary {
@@ -126,7 +125,6 @@ page {
 
 .relatedBook image {
   width: 140rpx;
-  height: 200rpx;
 }
 
 .relatedBook view {

@@ -115,7 +115,7 @@ page {
 
 .book image {
   width: 140rpx;
-  height: 200rpx;
+  /*宽度一定，高度自适应*/
 }
 
 .book view {

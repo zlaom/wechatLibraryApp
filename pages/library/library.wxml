@@ -2,7 +2,7 @@
 <template name="sort">
   <view class="sort" data-sort="{{sortName}}" data-esort="{{sortEname}}" catchtap="sortDetail">
     <view class="book">
-      <image src="{{cover}}"></image>
+      <image src="{{cover}}" mode="widthFix"></image>
     </view>
     <view class="sortName">{{sortName}}</view>
     <view class="bookNum">共{{num}}册..</view>
@@ -11,7 +11,7 @@
 <view class="container">
   <view class="search">
     <view class="searchInput">
-       <input placeholder="书目搜索" bindinput="inputSearchContent" type="text" />
+      <input placeholder="书目搜索" bindinput="inputSearchContent" type="text" />
     </view>
     <view class="scanCode">
       <image src="../../images/scanCode.png"></image>

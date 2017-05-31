@@ -31,20 +31,24 @@ page {
   font-size: 30rpx;
   padding-left: 25rpx;
 }
-.scanCode{
+
+.scanCode {
   height: 80rpx;
   width: 100rpx;
 }
-.scanCode image{
+
+.scanCode image {
   width: 50rpx;
   height: 50rpx;
   margin: 15rpx;
 }
-.searchTap{
+
+.searchTap {
   height: 80rpx;
   width: 100rpx;
 }
-.searchTap image{
+
+.searchTap image {
   width: 50rpx;
   height: 50rpx;
   margin: 15rpx;
@@ -97,5 +101,4 @@ page {
 
 .book image {
   width: 140rpx;
-  height: 200rpx;
 }

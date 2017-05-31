@@ -14,7 +14,7 @@
 </template>
 <view class="container">
   <view class="showTitle">
-    <Image src="../../images/remindNo.png"></Image>
+    <Image src="../../images/delete.png" catchtap="deleteAllNews"></Image>
     <view>{{messagesNum}}</view>
   </view>
   <block wx:for="{{messages}}">

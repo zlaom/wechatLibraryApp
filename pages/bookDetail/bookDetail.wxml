@@ -1,16 +1,15 @@
-
 <!--sortDetail.wxml-->
 <template name="relatedBook">
   <view class="relatedBook" data-bookId="{{bookId}}" catchtap="bookDetail">
-    <image src="{{bookCover}}"></image>
+    <image src="{{bookCover}}" mode="widthFix"></image>
     <view> {{bookTitle}} </view>
   </view>
 </template>
 <view class="container">
   <view class="bookDetail">
-    <view class="oneBook" >
+    <view class="oneBook">
       <view class="book">
-        <image src="{{book.bookCover}}"></image>
+        <image src="{{book.bookCover}}" mode="widthFix"></image>
       </view>
       <view class="bookSummary">
         <view class="bookMessages">
@@ -48,7 +47,7 @@
       <button type="text" type="default" data-bookId="{{book.bookId}}" ontap="cancelReserve">取消预约</button>
     </view>
     <view wx:elif="{{bookStatus == 'borrow'}}">
-      <button type="text" type="default" data-bookId="{{book.bookId}}" >已借</button>
+      <button type="text" type="default" data-bookId="{{book.bookId}}">已借</button>
     </view>
   </view>
   <view class="bookAction">

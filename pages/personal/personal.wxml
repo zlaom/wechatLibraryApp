@@ -2,7 +2,7 @@
 <!--personal.wxml-->
 <template name="book">
   <view class="book" id="{{id}}" data-hi="{{id}}" catchtap="bookDetail">
-    <image src="{{cover}}"></image>
+    <image src="{{cover}}" mode="widthFix" ></image>
     <view> {{title}} </view>
   </view>
 </template>
