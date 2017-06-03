@@ -19,10 +19,10 @@
   <!--搜索栏-->
   <view class="search">
     <view class="searchInput">
-      <input placeholder="书目搜索" bindinput="inputSearchContent" type="text" />
+      <input placeholder="{{placeholder}}" bindinput="inputSearchContent" type="text" />
     </view>
     <view class="scanCode">
-      <image src="../../images/scanCode.png"></image>
+      <image src="../../images/scanCode.png" catchtap="scanCode"></image>
     </view>
     <view class="searchTap" catchtap="bookSearch">
       <image src="../../images/search.png"></image>

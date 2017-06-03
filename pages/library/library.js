@@ -1,7 +1,8 @@
 const host = require('../../config.js').host2;
 Page({
   data: {
-    sorts: []
+    sorts: [],
+    placeholder:'书目搜索'
   },
 
   onShow: function () {
@@ -37,9 +38,13 @@ Page({
       url: '/pages/sortDetail/sortDetail?sort=' + sort + "&esort=" + esort
     })
   },
+  // 调起搜索
   bookSearch: function () {
     var that = this;
     var content = that.data.searchContent
+    that.setData({
+      placeholder: content
+    });
     console.log(content);
     wx.navigateTo({
       url: '/pages/search/search?content=' + content
@@ -49,6 +54,26 @@ Page({
     var that = this;
     that.setData({
       searchContent: e.detail.value
+    })
+  },
+  // 调起扫码
+  scanCode:function(e){
+    wx.scanCode({
+      onlyFromCamera: true,
+      success: (res) => {
+        console.log("扫码成功");
+        var bookId = res.result;
+        wx.navigateTo({
+          url: '/pages/bookDetail/bookDetail?bookId=' + bookId
+        })
+      },
+      fail:function(){
+        console.log("扫码失败");
+        wx.showModal({
+          title: '提示',
+          content: '扫码失败'
+        })
+      }
     })
   }
 })

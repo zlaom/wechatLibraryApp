@@ -11,9 +11,9 @@
 <view class="container">
   <view class="search">
     <view class="searchInput">
-      <input placeholder="书目搜索" bindinput="inputSearchContent" type="text" />
+      <input placeholder="{{placeholder}}" bindinput="inputSearchContent" type="text" />
     </view>
-    <view class="scanCode">
+    <view class="scanCode" catchtap="scanCode">
       <image src="../../images/scanCode.png"></image>
     </view>
     <view class="searchTap" catchtap="bookSearch">

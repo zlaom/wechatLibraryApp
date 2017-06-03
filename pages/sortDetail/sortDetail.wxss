@@ -10,6 +10,7 @@ page {
 .sortTitle {
   width: 710rpx;
   height: 80rpx;
+  margin-top:20rpx;
   background-color: #fff;
   padding-left: 10rpx;
   font-size: 40rpx;
