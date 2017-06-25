@@ -6,6 +6,7 @@ page {
 }
 
 /*主体框架*/
+
 .search {
   margin: 20rpx 10rpx 10rpx 10rpx;
   width: 720rpx;
@@ -20,6 +21,7 @@ page {
 }
 
 /*搜索框*/
+
 .search input {
   background-color: #f8f8f8;
   height: 50rpx;
@@ -53,6 +55,7 @@ page {
 }
 
 /*标题栏*/
+
 .sortTitle {
   width: 710rpx;
   height: 80rpx;
@@ -64,6 +67,7 @@ page {
 }
 
 /*分类栏*/
+
 .sort {
   display: flex;
   height: 220rpx;
@@ -99,10 +103,34 @@ page {
   width: 140rpx;
 }
 
-.history-item{
-  background-color: greenyellow;
-  margin: 2px;
+/*历史搜索框*/
+
+.history {
+  padding: 20rpx;
+  width: 680rpx;
+  background-color: #fff;
+  border-bottom: 10rpx solid #f8f8f8
 }
-.hide{
-  display: none
+
+.history image{
+  margin: 20rpx;
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.history-item {
+  color: #7f7f7f;
+  height: 50rpx;
+  border-radius: 30rpx;
+  background-color: #f8f8f8;
+  line-height: 50rpx;
+  font-size: 26rpx;
+  margin: 10rpx;
+  padding: 10rpx;
+  display: block;
+  float: left;
+}
+
+.hide {
+  display: none;
 }

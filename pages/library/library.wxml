@@ -25,9 +25,10 @@
       <image src="../../images/search.png"></image>
     </view>
   </view>
+  <!--历史搜索框-->
   <view class="{{history==true&&showHistory==true?'history':'hide history'}}">
     <text wx:for="{{searchHistory}}" data-content="{{item}}" class="history-item" catchtap="searchByHistory">{{item}}</text>
-    <text bindtap="deleteSearchHistory">删除历史记录</text>
+    <image src="../../images/delete2.png" bindtap="deleteSearchHistory"></image>
   </view>
   <!--分类列表-->
   <view class="sortTitle">分类</view>

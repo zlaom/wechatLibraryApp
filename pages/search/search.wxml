@@ -2,7 +2,7 @@
 <template name="oneBook">
   <view class="oneBook" catchtap="bookDetail" data-hi="{{id}}">
     <view class="book">
-      <image src="{{cover}}" mode="widthFix" ></image>
+      <image src="{{cover}}" mode="widthFix"></image>
     </view>
     <view class="bookSummary">
       <view class="sortName">{{bookName}}</view>
@@ -28,9 +28,9 @@
       <image src="../../images/search.png"></image>
     </view>
   </view>
-  <view class= "{{history==true&&showHistory==true?'history':'hide history'}}">
-  <text wx:for="{{searchHistory}}" data-content="{{item}}"class="history-item" catchtap="searchByHistory">{{item}}</text>
-    <text bindtap="deleteSearchHistory">删除历史记录</text>
+  <view class="{{history==true&&showHistory==true?'history':'hide history'}}">
+    <text wx:for="{{searchHistory}}" data-content="{{item}}" class="history-item" catchtap="searchByHistory">{{item}}</text>
+    <image src="../../images/delete2.png" bindtap="deleteSearchHistory"></image>
   </view>
   <!--结果栏-->
   <view class="booksBox">
@@ -39,6 +39,6 @@
         <template is="oneBook" data="{{...item}}" />
       </block>
     </view>
-    <view wx:else class="notFound">not found!</view>
+    <view wx:else class="notFound">搜索结果为空...</view>
   </view>
 </view>
