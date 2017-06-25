@@ -1,12 +1,11 @@
-<!--search.wxml-->
-<!--单本书的模板-->
+<!--单本书模板-->
 <template name="oneBook">
-  <view class="oneBook" data-bookId="{{bookId}}" catchtap="bookDetail">
+  <view class="oneBook" catchtap="bookDetail" data-hi="{{id}}">
     <view class="book">
-      <image src="{{cover}}" mode="widthFix"></image>
+      <image src="{{cover}}" mode="widthFix" ></image>
     </view>
     <view class="bookSummary">
-      <view class="bookName">{{bookName}}<text class="bookAuthor">  {{bookAuthor}}</text></view>
+      <view class="sortName">{{bookName}}</view>
       <view class="bookAbstract">简介：{{bookAbstract}}</view>
       <view class="bookStatus">
         <view>馆藏：{{bookNum}}</view>
@@ -20,7 +19,7 @@
   <!--搜索栏-->
   <view class="search">
     <view class="searchInput">
-      <input placeholder="{{placeholder}}" bindinput="inputSearchContent" type="text" />
+      <input placeholder="{{placeholder}}" bindinput="inputSearchContent" bindfocus="showHistory" bindblur="hideHistory" type="text" />
     </view>
     <view class="scanCode">
       <image src="../../images/scanCode.png" catchtap="scanCode"></image>
@@ -28,6 +27,10 @@
     <view class="searchTap" catchtap="bookSearch">
       <image src="../../images/search.png"></image>
     </view>
+  </view>
+  <view class= "{{history==true&&showHistory==true?'history':'hide history'}}">
+  <text wx:for="{{searchHistory}}" data-content="{{item}}"class="history-item" catchtap="searchByHistory">{{item}}</text>
+    <text bindtap="deleteSearchHistory">删除历史记录</text>
   </view>
   <!--结果栏-->
   <view class="booksBox">

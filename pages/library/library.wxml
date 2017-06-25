@@ -14,7 +14,7 @@
   <!--搜索栏-->
   <view class="search">
     <view class="searchInput">
-      <input placeholder="{{placeholder}}" bindinput="inputSearchContent" type="text" />
+      <input placeholder="{{placeholder}}" bindinput="inputSearchContent" bindfocus="showHistory" bindblur="hideHistory" type="text" />
     </view>
     <!--扫码按钮-->
     <view class="scanCode" catchtap="scanCode">
@@ -24,6 +24,10 @@
     <view class="searchTap" catchtap="bookSearch">
       <image src="../../images/search.png"></image>
     </view>
+  </view>
+  <view class="{{history==true&&showHistory==true?'history':'hide history'}}">
+    <text wx:for="{{searchHistory}}" data-content="{{item}}" class="history-item" catchtap="searchByHistory">{{item}}</text>
+    <text bindtap="deleteSearchHistory">删除历史记录</text>
   </view>
   <!--分类列表-->
   <view class="sortTitle">分类</view>

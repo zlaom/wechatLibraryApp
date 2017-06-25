@@ -98,3 +98,11 @@ page {
 .book image {
   width: 140rpx;
 }
+
+.history-item{
+  background-color: greenyellow;
+  margin: 2px;
+}
+.hide{
+  display: none
+}

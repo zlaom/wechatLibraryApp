@@ -84,17 +84,12 @@ page {
   margin: 10rpx;
 }
 
-.bookName {
+.sortName {
   height: 50rpx;
   line-height: 50rpx;
   width: 520rpx;
   text-align: left;
   font-size: 30rpx;
-}
-
-.bookAuthor {
-  color: #8f8f8f;
-  font-size: 24rpx;
 }
 
 .bookAbstract {
@@ -116,4 +111,14 @@ page {
   width: 120rpx;
   font-size: 22rpx;
   text-align: left;
+}
+.history{
+//  background-color: white;
+}
+.history-item{
+  background-color: greenyellow;
+  margin: 2px;
+}
+.hide{
+  display: none
 }
