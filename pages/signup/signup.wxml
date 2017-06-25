@@ -1,11 +1,12 @@
-
 <!--signup-->
 <view class="container">
+  <!--当前微信用户信息-->
   <view class="page_hd">
     <view class="app_icon">
       <Image src="{{userInfo.avatarUrl}}" background-size="cover"></Image>
     </view>
   </view>
+  <!--表单包括电话和身份证-->
   <view>
     <view class="section">
       <input type="number" placeholder="电话" bindinput="bindphone" auto-focus />

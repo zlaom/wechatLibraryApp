@@ -1,4 +1,5 @@
 <!--library.wxml-->
+<!--单个分类模板-->
 <template name="sort">
   <view class="sort" data-sort="{{sortName}}" data-esort="{{sortEname}}" catchtap="sortDetail">
     <view class="book">
@@ -8,18 +9,23 @@
     <view class="bookNum">共{{num}}册..</view>
   </view>
 </template>
+
 <view class="container">
+  <!--搜索栏-->
   <view class="search">
     <view class="searchInput">
       <input placeholder="{{placeholder}}" bindinput="inputSearchContent" type="text" />
     </view>
+    <!--扫码按钮-->
     <view class="scanCode" catchtap="scanCode">
       <image src="../../images/scanCode.png"></image>
     </view>
+    <!--搜索按钮-->
     <view class="searchTap" catchtap="bookSearch">
       <image src="../../images/search.png"></image>
     </view>
   </view>
+  <!--分类列表-->
   <view class="sortTitle">分类</view>
   <view class="sortBox">
     <block wx:for="{{sorts}}" wx:key="*this">

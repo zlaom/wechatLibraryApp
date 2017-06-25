@@ -1,5 +1,6 @@
-var QR = (function () {
+/*二维码绘制文件，借鉴https://github.com/demi520/wxapp-qrcode*/
 
+var QR = (function () {
   // alignment pattern
   var adelta = [
     0, 11, 15, 19, 23, 27, 31,

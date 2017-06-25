@@ -1,3 +1,5 @@
+<!--news.wxml-->
+<!--单条消息模板-->
 <template name="new">
   <view class="new" wx:if="{{ifShow==1}}">
     <view class="newHead">
@@ -13,10 +15,12 @@
   </view>
 </template>
 <view class="container">
+  <!--删除所有消息和消息数目显示-->
   <view class="showTitle">
     <Image src="../../images/delete.png" catchtap="deleteAllNews"></Image>
     <view>{{messagesNum}}</view>
   </view>
+  <!--显示所有消息-->
   <block wx:for="{{messages}}">
     <template is="new" data="{{...item,index}}"></template>
   </block>

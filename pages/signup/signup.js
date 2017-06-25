@@ -8,16 +8,19 @@ Page({
     idcard: '',
     userInfo: {}
   },
+  // 不断获取输入框内容并更新到data中的phone
   bindphone: function (event) {
     this.setData({
       phone: event.detail.value
     })
   },
+  // 不断获取输入框内容并更新到data中的idcard
   bindidcard: function (event) {
     this.setData({
       idcard: event.detail.value
     })
   },
+  // 页面加载前
   onLoad: function () {
     console.log('onLoad')
     var that = this
@@ -29,6 +32,7 @@ Page({
       })
     })
   },
+  // 点击注册按钮
   signup: function (event) {
     var that = this
     wx.showToast({
@@ -36,13 +40,14 @@ Page({
       icon: 'loading',
       duration: 20000
     })
-    console.log("data:" + that.data.phone + " " + that.data.idcard)
+    //console.log("data:" + that.data.phone + " " + that.data.idcard)
+    // 进行微信登陆
     wx.login({
       success: function (res) {
+        // 微信登陆后获取当前用户数据
         wx.getUserInfo({
           success: function (res) {
-            var simpleUser = res.userInfo;
-            console.log(simpleUser.nickName);
+            var simpleUser = res.userInfo;// 获取用户名
             //发起网络请求
             wx.request({
               url: host + '/signup', //登陆网址
@@ -56,7 +61,6 @@ Page({
                 'content-type': 'application/json'
               },
               success: function (res) {
-
                 if (res.data == 'success') {
                   // 缓存用户名数据
                   wx.setStorage({
@@ -81,9 +85,7 @@ Page({
             });
           }
         });
-
       }
     });
-
   }
 })

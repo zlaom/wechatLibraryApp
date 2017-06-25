@@ -6,7 +6,6 @@ page {
 }
 
 /*主体框架*/
-
 .search {
   margin: 20rpx 10rpx 10rpx 10rpx;
   width: 720rpx;
@@ -21,7 +20,6 @@ page {
 }
 
 /*搜索框*/
-
 .search input {
   background-color: #f8f8f8;
   height: 50rpx;
@@ -55,7 +53,6 @@ page {
 }
 
 /*标题栏*/
-
 .sortTitle {
   width: 710rpx;
   height: 80rpx;
@@ -67,7 +64,6 @@ page {
 }
 
 /*分类栏*/
-
 .sort {
   display: flex;
   height: 220rpx;

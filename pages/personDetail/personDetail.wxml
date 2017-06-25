@@ -1,10 +1,13 @@
+<!--personDetail.wxml-->
 <view class="container">
+<!--用户头像和昵称-->
   <view class="userMessage">
     <view class="userIcon">
       <Image src="{{userInfo.avatarUrl}}" background-size="cover"></Image>
     </view>
     <view class="userID">{{userInfo.nickName}}</view>
   </view>
+  <!--用户个人信息和推荐设置-->
   <view class="userSet">
     <view class="phoneAndId">
       <view class="showTitle">个人信息</view>

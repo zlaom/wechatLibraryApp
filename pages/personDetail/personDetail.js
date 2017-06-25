@@ -11,11 +11,10 @@ Page({
     setting: false,
     recommend: true // 推荐显示标志位
   },
-
+  //页面开启前
   onLoad: function () {
     var userId = getApp().globalData.userId;
     var that = this
-
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -23,25 +22,24 @@ Page({
         userInfo: userInfo
       })
     });
+    // 网络请求
     wx.request({
       url: host+'/personal/personDetail?userId=' + userId,
       data: {},
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+      method: 'GET',
+      // 成功返回
       success: function (res) {
         var user = res.data;
         that.setData({
           phone: user.phone,
           idCard: user.idCard
         })
-        // success
       },
       fail: function () {
-        // fail
-      },
-      complete: function () {
-        // complete
+        console.log('fail');
       }
     })
+    // 获取标志位recommend缓存
     wx.getStorage({
       key: 'recommend',
       success: function (res) {
@@ -49,7 +47,6 @@ Page({
           setting: true,
           recommend: res.data
         })
-        // success
       },
       fail: function () {
         that.setData({
@@ -62,6 +59,7 @@ Page({
       }
     })
   },
+  // 设置是否显示推荐书籍
   switchChange: function (e) {
     var statu = e.detail.value;
     if (statu == false) {
@@ -69,12 +67,10 @@ Page({
         key: 'recommend',
         data: false,
         success: function (res) {
+          console.log('设置recommend success');
         },
         fail: function () {
-          // fail
-        },
-        complete: function () {
-          // complete
+          console.log('设置recommend fail');
         }
       })
     }
@@ -83,13 +79,10 @@ Page({
         key: 'recommend',
         data: true,
         success: function (res) {
-          // success
+          console.log('设置recommend success');
         },
         fail: function () {
-          // fail
-        },
-        complete: function () {
-          // complete
+          console.log('设置recommend fail');
         }
       })
     }

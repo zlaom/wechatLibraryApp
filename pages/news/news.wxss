@@ -5,8 +5,7 @@ page {
   font-family: '微软雅黑';
 }
 
-/*showTitle*/
-
+/*顶部删除所有消息和消息数目显示*/
 .showTitle {
   margin-top: 20rpx;
   width: 720rpx;
@@ -31,8 +30,7 @@ page {
   color: #2ecc71;
 }
 
-/*new*/
-
+/*单条消息*/
 .new {
   width: 720rpx;
   margin-top: 20rpx;

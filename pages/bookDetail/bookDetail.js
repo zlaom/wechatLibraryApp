@@ -1,9 +1,11 @@
+// bookDetail.js 2017/6/3
 const host = require('../../config.js').host2;
 const image = require('../../config.js').image;
 var QR = require("../../utils/qrcode.js");
-
+var app = getApp()
 Page({
   data: {
+    userInfo: {},
     book: {},
     relatedBooks: [],
     bookStatus: "",
@@ -11,12 +13,17 @@ Page({
     imagePath: '',
     statusId: 'null'//默认二维码生成文本
   },
-
   // 开启页面前
   onLoad: function (option) {
     var that = this;
-
-    // 向服务器请求书籍详情页面数据
+    app.getUserInfo(function (userInfo) {
+      //更新数据
+      that.setData({
+        userInfo: userInfo
+      })
+    });
+    // 向服务器请求书籍详情页面相关数据
+    console.log('用户名'+getApp().globalData.userId);
     wx.request({
       url: host + '/library/bookDetail',
       data: {
@@ -24,16 +31,13 @@ Page({
         userId: getApp().globalData.userId
       },
       method: 'GET',
-
       // 成功返回
       success: function (res) {
-        console.log(res.data);
         if (res.data) {
           res.data.book.bookCover = image + res.data.book.bookCover;
-          for (var i = 0; i < res.data.relatedBooks.length; i++) {
+          for (var i = 0; i < res.data.relatedBooks.length; i++) {// 添加图片地址
             res.data.relatedBooks[i].bookCover = image + res.data.relatedBooks[i].bookCover;
           }
-          console.log(res.data.statusId);
           that.setData({
             book: res.data.book,
             relatedBooks: res.data.relatedBooks,
@@ -42,19 +46,13 @@ Page({
           })
         }
       },
-
+      // 失败返回
       fail: function (res) {
         console.log('fail');
-        // fail
-      },
-      complete: function (res) {
-        // complete
       }
     });
-
   },
-
-  // 首次渲染
+  // 首次渲染绘制状态二维码
   onReady: function () {
     var initUrl = this.data.statusId;
     if (initUrl != 'null') {
@@ -62,54 +60,47 @@ Page({
       this.createQrCode(initUrl, "mycanvas", size.w, size.h);
     }
   },
-
   // 获得书籍详情并更新数据
   bookDetail: function (e) {
-    console.log("even")
-    console.log(e);
+    //console.log("even")
+    //console.log(e);
     var bookId = e.currentTarget.dataset.bookid
-    wx.redirectTo({
+    wx.redirectTo({// 跳转相关书籍详情页面
       url: '/pages/bookDetail/bookDetail?bookId=' + bookId
     })
   },
-
-  // 书籍预约
+  // 书籍预约操作
   reserve: function (e) {
     var that = this;
-    wx.showToast({
+    wx.showToast({// 消息显示
       title: '预约中',
       icon: 'loading',
       duration: 20000
     })
-    wx.request({
-      url: host + '/library/bookReserve', //仅为示例，并非真实的接口地址
+    wx.request({// 网络请求
+      url: host + '/library/bookReserve',
       data: {
-        bookId: e.target.dataset.bookid, //设置发送到后台的bookid
+        bookId: e.target.dataset.bookid,
         userId: getApp().globalData.userId
       },
       method: 'post',
       header: {
         'content-type': 'application/json'
       },
-
+      // 成功返回
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         if (res.data.message == 'success') {
           wx.hideLoading();
           wx.showToast({
             title: '预约成功',
             icon: 'success'
           })
-
           that.setData({
             bookStatus: "reserve",
           })
-
-          // 获取状态Id
-          var url = res.data.statusId;
-          console.log("66666666666666666666");
-          console.log(url);
-          if (url != "null") {
+          var url = res.data.statusId;// 获取状态Id
+          if (url != "null") {// 若statusId存在
             that.setData({
               statusId: url,
             })
@@ -121,48 +112,44 @@ Page({
               clearTimeout(st);
             }, 2000)
           }
-          //给了才减一
-          if (res.data.resources == 1) {
-            // 使数据中bookCan减一
+          if (res.data.resources == 1) {// 若分配了书本资源则使数据中book.bookCan减一
             var param = {};
             var bookCan = "book.bookCan";
             param[bookCan] = that.data.book.bookCan - 1;
             that.setData(param);
           }
-        } else {
+        } else {// 错误提示
           wx.hideLoading();
           wx.showModal({
             title: '提示',
-            content: res.data
+            content: res.data.message
           })
         }
       }
     })
   },
-
-  // 取消预约
+  // 取消预约操作
   cancelReserve: function (e) {
     var that = this;
-    console.log(e);
     var that = this
-    wx.showToast({
+    wx.showToast({// 消息提醒
       title: '预约中',
       icon: 'loading',
       duration: 20000
     })
     wx.request({
-      url: host + '/library/cancelReserve', // 仅为示例，并非真实的接口地址
+      url: host + '/library/cancelReserve',
       data: {
-        bookId: e.target.dataset.bookid, // 设置发送到后台的bookid
-        userId: getApp().globalData.userId // 用户名
+        bookId: e.target.dataset.bookid, 
+        userId: getApp().globalData.userId
       },
       method: 'post',
       header: {
         'content-type': 'application/json'
       },
-
+      // 成功返回
       success: function (res) {
-        console.log(res.data)
+        //console.log(res.data)
         if (res.data.message == 'success') {
           wx.hideLoading();
           wx.showToast({
@@ -173,10 +160,7 @@ Page({
             bookStatus: "none",
             statusId: 'null'
           })
-
-          // 持有才加一
-          if (res.data.resources == 1) {
-            // 使数据中bookCan加一
+          if (res.data.resources == 1) {// 若当前书本状态持有资源则使数据中book.bookCan加一
             var param = {};
             var bookCan = "book.bookCan";
             param[bookCan] = that.data.book.bookCan + 1;
@@ -192,7 +176,6 @@ Page({
       }
     })
   },
-
   // 反回个人中心
   returnPersonal: function (e) {
     wx.switchTab({
@@ -210,7 +193,6 @@ Page({
       size.w = width;
       size.h = height;
     } catch (e) {
-      // Do something when catch error
       console.log("获取设备信息失败" + e);
     }
     return size;
@@ -220,7 +202,7 @@ Page({
     QR.qrApi.draw(url, canvasId, cavW, cavH);
 
   },
-  //获取临时缓存照片路径，存入data中
+  //暂时未使用---获取临时缓存照片路径，存入data中
   canvasToTempImage: function () {
     var that = this;
     wx.canvasToTempFilePath({
@@ -236,20 +218,5 @@ Page({
         console.log(res);
       }
     });
-  },
-  formSubmit: function (e) {
-    var that = this;
-    var url = e.detail.value.url;
-    var st = setTimeout(function () {
-      wx.hideToast()
-      var size = that.setCanvasSize();
-      //绘制二维码
-      that.createQrCode(url, "mycanvas", size.w, size.h);
-      that.setData({
-        maskHidden: true
-      });
-      clearTimeout(st);
-    }, 2000)
-
   }
 })

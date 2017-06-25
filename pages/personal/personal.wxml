@@ -1,5 +1,6 @@
 
 <!--personal.wxml-->
+<!--单本书模板-->
 <template name="book">
   <view class="book" id="{{id}}" data-hi="{{id}}" catchtap="bookDetail">
     <image src="{{cover}}" mode="widthFix" ></image>

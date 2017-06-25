@@ -49,12 +49,17 @@ page {
   margin: 10rpx;
 }
 
-.sortName {
+.bookName {
   height: 50rpx;
   line-height: 50rpx;
   width: 520rpx;
   text-align: left;
   font-size: 30rpx;
+}
+
+.bookAuthor {
+  color: #8f8f8f;
+  font-size: 24rpx;
 }
 
 .bookAbstract {

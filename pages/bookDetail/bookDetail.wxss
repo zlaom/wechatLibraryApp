@@ -6,7 +6,6 @@ page {
 }
 
 /*主体框架*/
-
 .bookDetail {
   margin-top: 20rpx;
   width: 720rpx;
@@ -15,7 +14,6 @@ page {
 }
 
 /*书籍栏*/
-
 .oneBook {
   display: flex;
   height: 350rpx;
@@ -86,9 +84,6 @@ page {
 }
 
 /*相关书籍*/
-
-/*borrowBook*/
-
 .relatedBooks {
   width: 720rpx;
   height: 300rpx;
@@ -135,16 +130,12 @@ page {
 }
 
 /*操作栏*/
-
 .bookAction {
   margin-top: 20rpx;
   width: 720rpx;
 }
 
 /*二维码*/
-
-/* pages/main/index.wxss */
-
 .container-box {
   background-color: #fff;
   margin-top: 20rpx;

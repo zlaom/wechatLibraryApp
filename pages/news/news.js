@@ -5,40 +5,40 @@ Page({
     messagesNum: '',
     messages: [],
   },
-  deleteNew: function (e) {
-    console.log("delete");
-  },
+  // 页面加载前
   onLoad: function () {
     var that = this;
-    wx.request({
-      url: host + '/personal/messages',
-      data: {
-        userId: getApp().globalData.userId
-      },
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
+    // 获取当前缓存用户
+    wx.getStorage({
+      key: 'userId',
       success: function (res) {
-        // success
-        console.log(res);
-        that.setData({
-          messagesNum: res.data.messagesNum,
-          messages: res.data.messages
+        var userId = res.data;// 设置用户名
+        wx.request({// 网络请求消息内容
+          url: host + '/personal/messages',
+          data: {
+            userId: getApp().globalData.userId
+          },
+          method: 'GET',
+          // 成功返回
+          success: function (res) {
+            //console.log(res);
+            that.setData({
+              messagesNum: res.data.messagesNum,
+              messages: res.data.messages
+            })
+          },
+          // 失败返回
+          fail: function (res) {
+            console.log(host + '/personal/messages fail');
+          }
         })
-      },
-      fail: function (res) {
-         // fail
-        console.log('fail');
-      },
-      complete: function (res) {
-        // complete
       }
     })
-
   },
+  // 删除所有消息
   deleteAllNews: function (e) {
-    console.log(e);
     var that = this;
-
-    wx.request({
+    wx.request({// 网络请求
       url: host + '/personal/delAllNews', // 删除对应消息
       data: {
         userId: getApp().globalData.userId, //设置发送到后台的数据
@@ -47,9 +47,8 @@ Page({
       header: {
         'content-type': 'application/json'
       },
-
+      // 成功返回
       success: function (res) {
-        console.log(res.data)
         if (res.data == 'success') {
           wx.hideLoading();
           wx.showToast({
@@ -59,9 +58,7 @@ Page({
           that.setData({
             messages: [],
             messagesNum:0
-            //ifrelated: 1
           })
-
         } else {
           wx.hideLoading();
           wx.showModal({
@@ -69,21 +66,25 @@ Page({
             content: res.data
           })
         }
+      },
+      // 失败返回
+      fail: function (res) {
+        console.log(host + '/personal/delAllNews fail');
       }
     })
   },
+  // 删除单条消息
   deleteNew: function (e) {
     var that = this;
-    var param = {};
     var num = e.currentTarget.dataset.num;
-    var string = "messages[" + num + "].ifShow";
-    param[string] = 'changed data';
-    that.setData(param);
+    var param = {};// 特殊方法更改微信小程序的data内联数组值-1
+    var string = "messages[" + num + "].ifShow";// 特殊方法更改微信小程序的data内联数组值-2
+    param[string] = 'changed data';// 特殊方法更改微信小程序的data内联数组值-3
+    that.setData(param);// 特殊方法更改微信小程序的data内联数组值-4
     that.setData({
       messagesNum: this.data.messagesNum - 1
     });
-
-    wx.request({
+    wx.request({//网络请求
       url: host + '/personal/delMessage', // 删除对应消息
       data: {
         userId: getApp().globalData.userId,
@@ -93,7 +94,7 @@ Page({
       header: {
         'content-type': 'application/json'
       },
-
+      // 成功返回
       success: function (res) {
         console.log(res.data)
         if (res.data == 'success') {
@@ -102,8 +103,6 @@ Page({
             title: '删除成功',
             icon: 'success'
           })
-
-
         } else {
           wx.hideLoading();
           wx.showModal({
@@ -111,8 +110,11 @@ Page({
             content: res.data
           })
         }
+      },
+      // 失败返回
+      fail: function (res) {
+        console.log(host + '/personal/delMessage fail');
       }
     })
-
   }
 })
