@@ -3,7 +3,7 @@
 <template name="sort">
   <view class="sort" data-sort="{{sortName}}" data-esort="{{sortEname}}" catchtap="sortDetail">
     <view class="book">
-      <image src="{{cover}}" mode="widthFix"></image>
+      <image src="{{sortCover}}" mode="widthFix"></image>
     </view>
     <view class="sortName">{{sortName}}</view>
     <view class="bookNum">共{{num}}册..</view>

@@ -1,9 +1,8 @@
-
 <!--personal.wxml-->
 <!--单本书模板-->
 <template name="book">
   <view class="book" id="{{id}}" data-hi="{{id}}" catchtap="bookDetail">
-    <image src="{{cover}}" mode="widthFix" ></image>
+    <view class="bookimg"><image src="{{cover}}" mode="widthFix"></image></view>
     <view> {{title}} </view>
   </view>
 </template>
@@ -13,15 +12,18 @@
 
   <!--用户信息：头像和消息数-->
   <view class="userMessage">
-    <view class="userIcon" catchtap="personDetail">
-      <Image src="{{userInfo.avatarUrl}}" background-size="cover"></Image>
+    <view class="userMessagecontent">
+      <view class="userIcon" catchtap="personDetail">
+        <Image src="{{userInfo.avatarUrl}}" background-size="cover"></Image>
+      </view>
+      <view class="userID" catchtap="personDetail">{{userInfo.nickName}}</view>
+      <view class="userAir"></view>
+      <view class="userRemind" catchtap="news">
+        <Image src="../../images/remindNo.png"></Image>
+        <view>{{remind}}</view>
+      </view>
     </view>
-    <view class="userID" catchtap="personDetail">{{userInfo.nickName}}</view>
-    <view class="userAir"></view>
-    <view class="userRemind" catchtap="news">
-      <Image src="../../images/remindNo.png"></Image>
-      <view>{{remind}}</view>
-    </view>
+
   </view>
 
   <!--已借-->

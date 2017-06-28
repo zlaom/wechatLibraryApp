@@ -4,7 +4,6 @@
     "pages/library/library",
     "pages/community/community",
     "pages/signup/signup",
-    "pages/list/list",
     "pages/bookDetail/bookDetail",
     "pages/sortDetail/sortDetail",
     "pages/personDetail/personDetail",

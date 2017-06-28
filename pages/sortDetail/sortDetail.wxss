@@ -38,7 +38,11 @@ page {
   width: 140rpx;
   margin: 10rpx;
 }
-
+.bookimg{
+    width: 140rpx;
+    height: 200rpx;
+    overflow: hidden;
+}
 .book image {
   width: 140rpx;
 }

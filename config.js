@@ -2,10 +2,10 @@
 
 var config = {
   // http地址
-  host2: "http://localhost:3000",
+  host2: "https://www.damiangao.cn",
   
   // 图片地址
-  image:"http://localhost:3000/img/"
+  image:"https://www.damiangao.cn/img/"
 };
 
 module.exports = config

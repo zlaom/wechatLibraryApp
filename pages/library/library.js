@@ -1,4 +1,6 @@
 const host = require('../../config.js').host2;
+const image = require('../../config.js').image;
+
 Page({
   data: {
     sorts: [],
@@ -13,13 +15,13 @@ Page({
     wx.request({
       url: host + '/library/Sorts',
 
-      method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
-      // header: {}, // 设置请求的 header
+      method: 'GET', 
       success: function (res) {
-        console.log(res.data)
-        //获取将json对象赋值给books
-
+        console.log(res.data)//获取将json对象赋值给books
         var sorts = res.data;
+        for (var i = 0; i < sorts.length; i++) {// 添加图片地址
+          sorts[i].sortCover = image + sorts[i].sortCover;
+        }
         that.setData({
           sorts: sorts
         });
