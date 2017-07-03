@@ -3,7 +3,8 @@
 <template name="book">
   <view class="book" id="{{id}}" data-hi="{{id}}" catchtap="bookDetail">
     <view class="bookimg"><image src="{{cover}}" mode="widthFix"></image></view>
-    <view> {{title}} </view>
+     <view class="bookTitle"> {{title}} </view>
+    <view class="time"> {{time}} </view>
   </view>
 </template>
 

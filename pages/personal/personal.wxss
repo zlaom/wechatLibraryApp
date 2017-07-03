@@ -21,7 +21,7 @@ page {
 
 .borrowBook {
   width: 720rpx;
-  height: 300rpx;
+  height: 340rpx;
   background-color: #fff;
   margin: 8rpx auto;
   overflow: hidden;
@@ -29,7 +29,7 @@ page {
 
 .reserveBook {
   width: 720rpx;
-  height: 300rpx;
+  height: 340rpx;
   background-color: #fff;
   margin: 8rpx auto;
   overflow: hidden;
@@ -37,7 +37,7 @@ page {
 
 .recommendBook {
   width: 720rpx;
-  height: 300rpx;
+  height: 340rpx;
   background-color: #fff;
   margin: 8rpx auto;
   overflow: hidden;
@@ -93,7 +93,7 @@ page {
   width: 100%;
   height: 30rpx;
   font-size: 30rpx;
-  margin: 5rpx;
+  margin: 10rpx;
 }
 
 .showBox {
@@ -103,13 +103,14 @@ page {
 }
 
 .showBook {
-  height: 260rpx;
+  height: 300rpx;
   width: 100%;
   white-space: nowrap;
 }
 
 .book {
   display: inline-block;
+  padding: 0rpx;
   height: 240rpx;
   width: 140rpx;
   margin: 10rpx;
@@ -123,10 +124,23 @@ page {
   width: 140rpx;
   /*宽度一定，高度自适应*/
 }
-
-.book view {
-  width: 140rpx;
-  font-size: 24rpx;
-  text-align: center;
-  overflow: hidden;
+.bookTitle{
+   font-size: 24rpx;
+   font-weight: 500;
+   text-align: left;
 }
+.time{
+  font-size: 20rpx;
+  text-align: left;
+  color: #707070
+}
+
+
+
+
+
+
+
+
+
+

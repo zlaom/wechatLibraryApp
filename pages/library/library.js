@@ -29,11 +29,12 @@ Page({
       },
     })
   },
+  //跳转分类详情
   sortDetail: function (e) {
     var sort = e.currentTarget.dataset.sort;
     var esort = e.currentTarget.dataset.esort;
     wx.navigateTo({
-      url: '/pages/sortDetail/sortDetail?sort=' + sort + "&esort=" + esort
+      url: '/pages/sortDetail/sortDetail?sort=' + sort 
     })
   },
   // 调起搜索
@@ -88,6 +89,7 @@ Page({
       success: (res) => {
         console.log("扫码成功");
         var bookId = res.result;
+        console.log('结果'+bookId)
         wx.navigateTo({
           url: '/pages/bookDetail/bookDetail?bookId=' + bookId
         })

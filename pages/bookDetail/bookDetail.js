@@ -85,7 +85,8 @@ Page({
       },
       method: 'post',
       header: {
-        'content-type': 'application/json'
+        'content-type': 'application/json',
+        'session': 'session_id'
       },
       // 成功返回
       success: function (res) {
@@ -133,7 +134,7 @@ Page({
     var that = this;
     var that = this
     wx.showToast({// 消息提醒
-      title: '预约中',
+      title: '取消中',
       icon: 'loading',
       duration: 20000
     })

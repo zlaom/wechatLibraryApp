@@ -8,10 +8,9 @@ Page({
   },
 // 页面开启前
   onLoad: function (query) {
-    //sort为数组sort[0] 中文 sort[1] 英文
-    var esort = query.esort
+    var sort = query.sort
     this.setData({
-      sort: query.sort,
+      sort: sort
     })
     var sort = this.data.sort;
     var that = this;
@@ -19,7 +18,7 @@ Page({
     wx.request({
       url: host + '/library/sortDetail',
       data: {
-        bookSort: esort
+        bookSort: sort
       },
       method: 'GET', 
       success: function (res) {

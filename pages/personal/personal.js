@@ -1,5 +1,6 @@
 //personal.js
 //获取应用实例
+const websocket = require('../../config.js').host1;
 const host = require('../../config.js').host2;
 const image = require('../../config.js').image;
 
@@ -11,10 +12,54 @@ Page({
     reserveBook: [],
     recommendBook: [],
     recommend: false,
-    remind:0
+    remind: 0
   },
   // 页面加载前
   onLoad: function () {
+    var self = this;
+
+    wx.login({
+      success: function (res) {
+        wx.getUserInfo({
+          success: function (res) {
+            var userName = res.userInfo.nickName;// 获取用户名
+            console.log(userName);
+            // webSocket部分
+            console.log("将要连接服务器。");
+            wx.connectSocket({
+              url: websocket
+            });
+
+            wx.onSocketOpen(function (res) {
+              //连接成功发送当前用户名
+              wx.sendSocketMessage({
+                data: userName
+              });
+            });
+          }
+        });
+      }
+    });
+
+   
+
+    wx.onSocketMessage(function (res) {
+      console.log('收到服务器内容：' + res.data);
+      wx.showModal({
+        title: '提示',
+        content: res.data,
+        success: function (res) {
+          if (res.confirm) {
+            console.log('用户点击确定')
+            wx.navigateTo({
+              url: '/pages/news/news'
+            })
+          } else if (res.cancel) {
+            console.log('用户点击取消')
+          }
+        }
+      })
+    });
     var that = this;
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
@@ -35,7 +80,7 @@ Page({
             wx.redirectTo({
               url: '/pages/signup/signup'
             })
-          }else{
+          } else {
             console.log("设置缓存");
             wx.setStorage({
               key: "userId",
@@ -46,47 +91,13 @@ Page({
           }
         }
       })
-      // 获取当前缓存用于缓存跟新
-     /*
-        key: 'userId',
-        // 存在缓存的时候
-        success: function (res) {
-          if (userInfo.nickName != res.data) {// 若当前用户昵称不等于缓存用户昵称则更新缓存
-            wx.setStorage({
-              key: "userId",
-              data: userInfo.nickName
-            })
-          }
-          getApp().globalData.userId = userInfo.nickName;// 设置全局变量
-        },
-        // 没有缓存时候
-        fail: function () {// 直接网络查询用户
-          wx.request({
-            url: host + '/signup/ifExist', //仅为示例，并非真实的接口地址
-            data: {
-              userId: userInfo.nickName,
-            },
-            method: 'GET',
-            success: function (res) {
-              if (res.data == "notExist") {// 若用户不存在则跳转注册页面
-                console.log("跳转");
-                wx.redirectTo({
-                  url: '/pages/signup/signup' 
-                })
-              }else{
-                console.log("添加缓存");
-                // 用户存在缓存用户名数据
-                wx.setStorage({
-                  key: "userId",
-                  data: userInfo.nickName
-                })
-              }
-            }
-          })
-        }
-      })*/
     })
   },
+
+  onUnload: function () {
+    wx.closeSocket();
+  },
+
   // 页面开启前
   onShow: function () {
     var that = this;
@@ -99,13 +110,13 @@ Page({
         wx.request({
           url: host + '/personal?userId=' + userId,//传给服务器用户ID
           data: {},
-          method: 'GET', 
+          method: 'GET',
           success: function (res) {
             /*设置page.data中的borrowBook、reserveBook、recommendBook数据*/
             var borrowBook = res.data.borrowBook;
             var reserveBook = res.data.reserveBook;
             var recommendBook = res.data.recommendBook;
-            var remind=res.data.remind;
+            var remind = res.data.remind;
             var temp0 = [];
             var temp1 = [];
             var temp2 = [];
@@ -114,7 +125,8 @@ Page({
                 temp0[i] = {
                   id: borrowBook[i].bookId,
                   title: borrowBook[i].bookTitle,
-                  cover: image+borrowBook[i].bookCover
+                  time: borrowBook[i].returnTime+ '还',
+                  cover: image + borrowBook[i].bookCover
                 }
               }
             }
@@ -123,7 +135,8 @@ Page({
                 temp1[i] = {
                   id: reserveBook[i].bookId,
                   title: reserveBook[i].bookTitle,
-                  cover: image+reserveBook[i].bookCover
+                  time: '保留到' + reserveBook[i].returnTime,
+                  cover: image + reserveBook[i].bookCover
                 }
               }
             }
@@ -132,7 +145,7 @@ Page({
                 temp2[i] = {
                   id: recommendBook[i].bookId,
                   title: recommendBook[i].bookTitle,
-                  cover: image+recommendBook[i].bookCover
+                  cover: image + recommendBook[i].bookCover
                 }
               }
             }
@@ -165,7 +178,7 @@ Page({
           })
         }
       },
-      fail: function(){
+      fail: function () {
         console.log('获取标志位信息失败');
       }
     })
