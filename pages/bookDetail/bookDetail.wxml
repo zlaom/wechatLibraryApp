@@ -2,7 +2,7 @@
 <!--相关书籍中单本书的模板-->
 <template name="relatedBook">
   <view class="relatedBook" data-bookId="{{bookId}}" catchtap="bookDetail">
-    <image src="{{bookCover}}" mode="widthFix"></image>
+     <view class="bookimg"><image src="{{bookCover}}" mode="widthFix"></image></view>
     <view> {{bookTitle}} </view>
   </view>
 </template>

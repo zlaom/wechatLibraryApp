@@ -11,6 +11,11 @@ Page({
     searchHistory: []
   },
   onLoad: function (query) {
+    wx.showToast({// 消息显示
+      title: '搜索中',
+      icon: 'loading',
+      duration: 20000
+    })
     var that = this;
     console.log(query.content);
     var content = query.content;
@@ -39,14 +44,25 @@ Page({
               content: '',
             })
           }
+          wx.hideLoading();
         },
+        // 失败返回
         fail: function () {
-          console.log('搜索请求失败');
+          console.log('fail');
+          wx.showToast({
+            title: '搜索失败',
+            icon: 'fail'
+          })
         }
       })
     }
   },
   bookSearch: function () {
+    wx.showToast({// 消息显示
+      title: '搜索中',
+      icon: 'loading',
+      duration: 20000
+    })
     var that = this;
     var tempSearchHistory = [];
     var content = that.data.searchContent;
@@ -104,9 +120,15 @@ Page({
               content: '',
             })
           }
+          wx.hideLoading();
         },
+        // 失败返回
         fail: function () {
-          console.log('搜索请求失败');
+          console.log('fail');
+          wx.showToast({
+            title: '搜索失败',
+            icon: 'fail'
+          })
         }
       })
     }

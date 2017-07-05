@@ -7,6 +7,11 @@ Page({
   },
   // 页面加载前
   onLoad: function () {
+    wx.showToast({// 消息显示
+      title: '加载中',
+      icon: 'loading',
+      duration: 20000
+    })
     var that = this;
     // 获取当前缓存用户
     wx.getStorage({
@@ -21,6 +26,7 @@ Page({
           method: 'GET',
           // 成功返回
           success: function (res) {
+            wx.hideLoading();
             //console.log(res);
             that.setData({
               messagesNum: res.data.messagesNum,
@@ -37,6 +43,11 @@ Page({
   },
   // 删除所有消息
   deleteAllNews: function (e) {
+    wx.showToast({// 消息显示
+      title: '删除中',
+      icon: 'loading',
+      duration: 20000
+    })
     var that = this;
     wx.request({// 网络请求
       url: host + '/personal/delAllNews', // 删除对应消息
@@ -59,31 +70,41 @@ Page({
             messages: [],
             messagesNum:0
           })
+          // 设置全局变量
+          getApp().globalData.messageNum = 0;
+
         } else {
           wx.hideLoading();
           wx.showModal({
-            title: '提示',
+            title: '删除失败',
             content: res.data
           })
         }
       },
       // 失败返回
       fail: function (res) {
-        console.log(host + '/personal/delAllNews fail');
+        wx.hideLoading();
+        wx.showModal({
+          title: '删除失败',
+          content: res.data
+        })
       }
     })
   },
   // 删除单条消息
   deleteNew: function (e) {
+    wx.showToast({// 消息显示
+      title: '删除中',
+      icon: 'loading',
+      duration: 20000
+    })
     var that = this;
     var num = e.currentTarget.dataset.num;
     var param = {};// 特殊方法更改微信小程序的data内联数组值-1
     var string = "messages[" + num + "].ifShow";// 特殊方法更改微信小程序的data内联数组值-2
     param[string] = 'changed data';// 特殊方法更改微信小程序的data内联数组值-3
     that.setData(param);// 特殊方法更改微信小程序的data内联数组值-4
-    that.setData({
-      messagesNum: this.data.messagesNum - 1
-    });
+   
     wx.request({//网络请求
       url: host + '/personal/delMessage', // 删除对应消息
       data: {
@@ -96,24 +117,32 @@ Page({
       },
       // 成功返回
       success: function (res) {
-        console.log(res.data)
         if (res.data == 'success') {
           wx.hideLoading();
           wx.showToast({
             title: '删除成功',
             icon: 'success'
           })
+          that.setData({
+            messagesNum: that.data.messagesNum - 1
+          });
+          // 设置全局变量
+          getApp().globalData.messageNum = (that.data.messagesNum);
         } else {
           wx.hideLoading();
           wx.showModal({
-            title: '提示',
+            title: '删除失败',
             content: res.data
           })
         }
       },
       // 失败返回
       fail: function (res) {
-        console.log(host + '/personal/delMessage fail');
+        wx.hideLoading();
+        wx.showModal({
+          title: '删除失败',
+          content: res.data
+        })
       }
     })
   }

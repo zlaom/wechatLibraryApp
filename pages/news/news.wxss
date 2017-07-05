@@ -27,7 +27,7 @@ page {
   font-size: 36rpx;
   line-height: 130rpx;
   text-align: right;
-  color: #2ecc71;
+  color: #2c3e50;
 }
 
 /*单条消息*/

@@ -1,10 +1,10 @@
 <!--personal.wxml-->
 <!--单本书模板-->
 <template name="book">
-  <view class="book" id="{{id}}" data-hi="{{id}}" catchtap="bookDetail">
-    <view class="bookimg"><image src="{{cover}}" mode="widthFix"></image></view>
-     <view class="bookTitle"> {{title}} </view>
-    <view class="time"> {{time}} </view>
+  <view class="book" data-hi="{{bookId}}" catchtap="bookDetail">
+    <view class="bookimg"><image src="{{img}}{{bookCover}}" mode="widthFix"></image></view>
+     <view class="bookTitle"> {{bookTitle}} </view>
+    <view class="time"> {{returnTime}} </view>
   </view>
 </template>
 
@@ -33,7 +33,7 @@
       <view class="showTitle">已借</view>
       <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
         <block wx:for="{{borrowBook}}">
-          <template is="book" data="{{...item}}" />
+          <template is="book" data="{{...item,img}}" />
         </block>
       </scroll-view>
     </view>
@@ -45,7 +45,7 @@
       <view class="showTitle">预订</view>
       <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
         <block wx:for="{{reserveBook}}">
-          <template is="book" data="{{...item}}" />
+          <template is="book" data="{{...item,img}}" />
         </block>
       </scroll-view>
     </view>
@@ -57,7 +57,7 @@
       <view class="showTitle">推荐</view>
       <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
         <block wx:for="{{recommendBook}}">
-          <template is="book" data="{{...item}}" />
+          <template is="book" data="{{...item,img}}" />
         </block>
       </scroll-view>
     </view>

@@ -11,10 +11,16 @@ Page({
     bookStatus: "",
     maskHidden: true,
     imagePath: '',
-    statusId: 'null'//默认二维码生成文本
+    statusId: 'null',//默认二维码生成文本
+    reqStatus:false
   },
   // 开启页面前
   onLoad: function (option) {
+    wx.showToast({// 消息显示
+      title: '加载中',
+      icon: 'loading',
+      duration: 20000
+    })
     var that = this;
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -34,6 +40,7 @@ Page({
       // 成功返回
       success: function (res) {
         if (res.data) {
+          console.log(res.data);
           res.data.book.bookCover = image + res.data.book.bookCover;
           for (var i = 0; i < res.data.relatedBooks.length; i++) {// 添加图片地址
             res.data.relatedBooks[i].bookCover = image + res.data.relatedBooks[i].bookCover;
@@ -45,10 +52,31 @@ Page({
             statusId: res.data.statusId
           })
         }
+        var url = res.data.statusId;// 获取状态Id
+        if (url != "null") {// 若statusId存在
+          that.setData({
+            statusId: url,
+          })
+          var st = setTimeout(function () {
+            wx.hideToast()
+            var size = that.setCanvasSize();
+            //绘制二维码
+            that.createQrCode(url, "mycanvas", size.w, size.h);
+            clearTimeout(st);
+          }, 50)
+        }
+        wx.hideLoading();
+        that.setData({
+          reqStatus: true
+        })
       },
       // 失败返回
-      fail: function (res) {
+      fail: function () {
         console.log('fail');
+        wx.showToast({
+          title: '加载失败',
+          icon: 'fail'
+        })
       }
     });
   },
@@ -62,8 +90,6 @@ Page({
   },
   // 获得书籍详情并更新数据
   bookDetail: function (e) {
-    //console.log("even")
-    //console.log(e);
     var bookId = e.currentTarget.dataset.bookid
     wx.redirectTo({// 跳转相关书籍详情页面
       url: '/pages/bookDetail/bookDetail?bookId=' + bookId
@@ -72,110 +98,150 @@ Page({
   // 书籍预约操作
   reserve: function (e) {
     var that = this;
-    wx.showToast({// 消息显示
-      title: '预约中',
-      icon: 'loading',
-      duration: 20000
-    })
-    wx.request({// 网络请求
-      url: host + '/library/bookReserve',
-      data: {
-        bookId: e.target.dataset.bookid,
-        userId: getApp().globalData.userId
-      },
-      method: 'post',
-      header: {
-        'content-type': 'application/json',
-        'session': 'session_id'
-      },
-      // 成功返回
-      success: function (res) {
-        //console.log(res.data)
-        if (res.data.message == 'success') {
-          wx.hideLoading();
+    if (that.data.reqStatus){
+      wx.showToast({// 消息显示
+        title: '预约中',
+        icon: 'loading',
+        duration: 20000
+      })
+      that.setData({
+        reqStatus:false
+      })
+      wx.request({// 网络请求
+        url: host + '/library/bookReserve',
+        data: {
+          bookId: e.target.dataset.bookid,
+          userId: getApp().globalData.userId
+        },
+        method: 'post',
+        header: {
+          'content-type': 'application/json',
+          'session': 'session_id'
+        },
+        // 成功返回
+        success: function (res) {
+          //console.log(res.data)
+          if (res.data.message == 'success') {
+            wx.hideLoading();
+            wx.showToast({
+              title: '预约成功',
+              icon: 'success'
+            })
+            that.setData({
+              bookStatus: "reserve",
+            })
+            getApp().globalData.dataChange = true;
+            var url = res.data.statusId;// 获取状态Id
+            if (url != "null") {// 若statusId存在
+              that.setData({
+                statusId: url,
+              })
+              var st = setTimeout(function () {
+                wx.hideToast()
+                var size = that.setCanvasSize();
+                //绘制二维码
+                that.createQrCode(url, "mycanvas", size.w, size.h);
+                clearTimeout(st);
+              }, 50)
+            }
+            if (res.data.resources == 1) {// 若分配了书本资源则使数据中book.bookCan减一
+              var param = {};
+              var bookCan = "book.bookCan";
+              param[bookCan] = that.data.book.bookCan - 1;
+              that.setData(param);
+            }
+          } else {// 错误提示
+            wx.hideLoading();
+            wx.showModal({
+              title: '提示',
+              content: res.data.message
+            })
+          }
+          that.setData({
+            reqStatus: true
+          })
+        },
+        // 失败返回
+        fail: function () {
+          console.log('fail');
           wx.showToast({
-            title: '预约成功',
-            icon: 'success'
+            title: '连接服务器失败',
+            icon: 'fail'
           })
           that.setData({
-            bookStatus: "reserve",
-          })
-          var url = res.data.statusId;// 获取状态Id
-          if (url != "null") {// 若statusId存在
-            that.setData({
-              statusId: url,
-            })
-            var st = setTimeout(function () {
-              wx.hideToast()
-              var size = that.setCanvasSize();
-              //绘制二维码
-              that.createQrCode(url, "mycanvas", size.w, size.h);
-              clearTimeout(st);
-            }, 2000)
-          }
-          if (res.data.resources == 1) {// 若分配了书本资源则使数据中book.bookCan减一
-            var param = {};
-            var bookCan = "book.bookCan";
-            param[bookCan] = that.data.book.bookCan - 1;
-            that.setData(param);
-          }
-        } else {// 错误提示
-          wx.hideLoading();
-          wx.showModal({
-            title: '提示',
-            content: res.data.message
+            reqStatus: true
           })
         }
-      }
-    })
+      })
+    }
+  
   },
   // 取消预约操作
   cancelReserve: function (e) {
     var that = this;
-    var that = this
-    wx.showToast({// 消息提醒
-      title: '取消中',
-      icon: 'loading',
-      duration: 20000
-    })
-    wx.request({
-      url: host + '/library/cancelReserve',
-      data: {
-        bookId: e.target.dataset.bookid, 
-        userId: getApp().globalData.userId
-      },
-      method: 'post',
-      header: {
-        'content-type': 'application/json'
-      },
-      // 成功返回
-      success: function (res) {
-        //console.log(res.data)
-        if (res.data.message == 'success') {
-          wx.hideLoading();
+  
+    if (that.data.reqStatus) {
+      wx.showToast({// 消息提醒
+        title: '取消中',
+        icon: 'loading',
+        duration: 20000
+      })
+      wx.request({
+        url: host + '/library/cancelReserve',
+        data: {
+          bookId: e.target.dataset.bookid,
+          userId: getApp().globalData.userId
+        },
+        method: 'post',
+        header: {
+          'content-type': 'application/json'
+        },
+        // 成功返回
+        success: function (res) {
+          //console.log(res.data)
+          if (res.data.message == 'success') {
+            wx.hideLoading();
+            wx.showToast({
+              title: '取消成功',
+              icon: 'success'
+            })
+            that.setData({
+              bookStatus: "none",
+              statusId: 'null'
+            })
+            if (res.data.resources == 1) {// 若当前书本状态持有资源则使数据中book.bookCan加一
+              var param = {};
+              var bookCan = "book.bookCan";
+              param[bookCan] = that.data.book.bookCan + 1;
+              that.setData(param);
+            }
+            getApp().globalData.dataChange = true;
+          } else {
+            wx.hideLoading();
+            wx.showModal({
+              title: '提示',
+              content: res.data
+            })
+          }
+          that.setData({
+            reqStatus: true
+          })
+        },
+        // 失败返回
+        fail: function () {
+          console.log('fail');
           wx.showToast({
-            title: '取消成功',
-            icon: 'success'
+            title: '连接服务器失败',
+            icon: 'fail'
           })
           that.setData({
-            bookStatus: "none",
-            statusId: 'null'
-          })
-          if (res.data.resources == 1) {// 若当前书本状态持有资源则使数据中book.bookCan加一
-            var param = {};
-            var bookCan = "book.bookCan";
-            param[bookCan] = that.data.book.bookCan + 1;
-            that.setData(param);
-          }
-        } else {
-          wx.hideLoading();
-          wx.showModal({
-            title: '提示',
-            content: res.data
+            reqStatus: true
           })
         }
-      }
-    })
+
+      })
+    }
+   
   },
   // 反回个人中心
   returnPersonal: function (e) {
@@ -215,7 +281,7 @@ Page({
           imagePath: tempFilePath,
         });
       },
-      fail: function (res) {
+      fail: function () {
         console.log(res);
       }
     });

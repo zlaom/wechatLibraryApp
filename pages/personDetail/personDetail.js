@@ -13,6 +13,11 @@ Page({
   },
   //页面开启前
   onLoad: function () {
+    wx.showToast({// 消息显示
+      title: '加载中',
+      icon: 'loading',
+      duration: 20000
+    })
     var userId = getApp().globalData.userId;
     var that = this
     //调用应用实例的方法获取全局数据
@@ -29,6 +34,7 @@ Page({
       method: 'GET',
       // 成功返回
       success: function (res) {
+        wx.hideLoading();
         var user = res.data;
         that.setData({
           phone: user.phone,

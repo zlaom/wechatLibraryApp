@@ -8,6 +8,11 @@ Page({
   },
 // 页面开启前
   onLoad: function (query) {
+    wx.showToast({// 消息显示
+      title: '加载中',
+      icon: 'loading',
+      duration: 20000
+    })
     var sort = query.sort
     this.setData({
       sort: sort
@@ -32,9 +37,15 @@ Page({
             books: books
           });
         }
+        wx.hideLoading();
       },
+      // 失败返回
       fail: function () {
-        console.log('sortDetail网络请求失败')
+        console.log('fail');
+        wx.showToast({
+          title: '加载失败',
+          icon: 'fail'
+        })
       }
     })
   },

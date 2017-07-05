@@ -10,7 +10,12 @@ Page({
     searchHistory: []
   },
 
-  onShow: function () {
+  onLoad: function () {
+    wx.showToast({// 消息显示
+      title: '加载中',
+      icon: 'loading',
+      duration: 20000
+    })
     var that = this
     wx.request({
       url: host + '/library/Sorts',
@@ -25,8 +30,17 @@ Page({
         that.setData({
           sorts: sorts
         });
+        wx.hideLoading();
         // success
       },
+      // 失败返回
+      fail: function (res) {
+        console.log('fail');
+        wx.showToast({
+          title: '加载失败',
+          icon: 'fail'
+        })
+      }
     })
   },
   //跳转分类详情

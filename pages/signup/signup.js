@@ -40,7 +40,6 @@ Page({
       icon: 'loading',
       duration: 20000
     })
-    //console.log("data:" + that.data.phone + " " + that.data.idcard)
     // 进行微信登陆
     wx.login({
       success: function (res) {
