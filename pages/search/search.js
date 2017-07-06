@@ -1,5 +1,6 @@
 const host = require('../../config.js').host2;
 const image = require('../../config.js').image;
+var util = require("../../utils/util.js");
 
 Page({
   data: {
@@ -32,12 +33,11 @@ Page({
         // header: {}, // 设置请求的 header
         success: function (res) {
           var searchResult = res.data;
+          console.log(searchResult);
           if (searchResult != 'not found') {// 当返回结果不为not found时更新数据，不然设置内容标志位为空用于前端界面显示判断
-            for (var i = 0; i < searchResult.length; i++) {
-              searchResult[i].cover = image + searchResult[i].cover;
-            }
+            
             that.setData({
-              searchResult: searchResult
+              searchResult: util.imgChange(searchResult)
             });
           } else {
             that.setData({
@@ -109,11 +109,9 @@ Page({
         success: function (res) {
           var searchResult = res.data;
           if (searchResult != 'not found') {// 当返回结果不为not found时更新数据，不然设置内容标志位为空用于前端界面显示判断
-            for (var i = 0; i < searchResult.length; i++) {
-              searchResult[i].cover = image + searchResult[i].cover;
-            }
+
             that.setData({
-              searchResult: searchResult
+              searchResult: util.imgChange(searchResult)
             });
           } else {
             that.setData({
@@ -140,7 +138,7 @@ Page({
     })
   },
   bookDetail: function (e) {
-    var bookId = e.currentTarget.dataset.hi;
+    var bookId = e.currentTarget.dataset.bookid;
     console.log(bookId);
     wx.navigateTo({
       url: '/pages/bookDetail/bookDetail?bookId=' + bookId

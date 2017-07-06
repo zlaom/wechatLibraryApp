@@ -84,13 +84,26 @@ page {
   margin: 10rpx;
 }
 
-.sortName {
+.bookName {
   height: 50rpx;
   line-height: 50rpx;
   width: 520rpx;
   text-align: left;
   font-size: 30rpx;
+  overflow: hidden;
 }
+.bookTitle{
+  width: 400rpx;
+  height: 60rpx;
+  overflow: hidden;
+  float: left;
+}
+.bookAuthor {
+  color: #8f8f8f;
+  font-size: 24rpx;
+  margin-left: 20rpx;
+}
+
 
 .bookAbstract {
   height: 100rpx;

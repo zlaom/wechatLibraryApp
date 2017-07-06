@@ -1,5 +1,5 @@
 const host = require('../../config.js').host2;
-const image = require('../../config.js').image;
+var util = require("../../utils/util.js");
 
 Page({
   data: {
@@ -24,11 +24,8 @@ Page({
       success: function (res) {
         console.log(res.data)//获取将json对象赋值给books
         var sorts = res.data;
-        for (var i = 0; i < sorts.length; i++) {// 添加图片地址
-          sorts[i].sortCover = image + sorts[i].sortCover;
-        }
         that.setData({
-          sorts: sorts
+          sorts: util.imgChange(sorts)
         });
         wx.hideLoading();
         // success

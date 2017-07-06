@@ -37,6 +37,7 @@ page {
   height: 200rpx;
   width: 140rpx;
   margin: 10rpx;
+  overflow: hidden;
 }
 .bookimg{
     width: 140rpx;
@@ -59,11 +60,13 @@ page {
   width: 520rpx;
   text-align: left;
   font-size: 30rpx;
+  overflow: hidden;
 }
 
 .bookAuthor {
   color: #8f8f8f;
   font-size: 24rpx;
+  margin-left: 20rpx;
 }
 
 .bookAbstract {
@@ -85,4 +88,10 @@ page {
   width: 120rpx;
   font-size: 22rpx;
   text-align: left;
+}
+.bookTitle{
+  width: 400rpx;
+  height: 60rpx;
+  overflow: hidden;
+  float: left;
 }

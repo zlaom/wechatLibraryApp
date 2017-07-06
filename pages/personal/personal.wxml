@@ -2,8 +2,10 @@
 <!--单本书模板-->
 <template name="book">
   <view class="book" data-hi="{{bookId}}" catchtap="bookDetail">
-    <view class="bookimg"><image src="{{img}}{{bookCover}}" mode="widthFix"></image></view>
-     <view class="bookTitle"> {{bookTitle}} </view>
+    <view class="bookimg">
+      <image src="{{bookCover}}" mode="widthFix"></image>
+    </view>
+    <view class="bookTitle"> {{bookTitle}} </view>
     <view class="time"> {{returnTime}} </view>
   </view>
 </template>
@@ -20,7 +22,12 @@
       <view class="userID" catchtap="personDetail">{{userInfo.nickName}}</view>
       <view class="userAir"></view>
       <view class="userRemind" catchtap="news">
-        <Image src="../../images/remindNo.png"></Image>
+        <view wx:if="{{remindLevel==0}}">
+          <Image src="../../images/remindNo.png"></Image>
+        </view>
+        <view wx:else>
+          <Image src="../../images/remind.png"></Image>
+        </view>
         <view>{{remind}}</view>
       </view>
     </view>
@@ -28,38 +35,44 @@
   </view>
 
   <!--已借-->
-  <view class="borrowBook">
-    <view class="showBox">
-      <view class="showTitle">已借</view>
-      <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
-        <block wx:for="{{borrowBook}}">
-          <template is="book" data="{{...item,img}}" />
-        </block>
-      </scroll-view>
+  <view wx:if="{{borrowBook.length != 0}}">
+    <view class="borrowBook">
+      <view class="showBox">
+        <view class="showTitle">已借</view>
+        <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
+          <block wx:for="{{borrowBook}}">
+            <template is="book" data="{{...item}}" />
+          </block>
+        </scroll-view>
+      </view>
     </view>
   </view>
 
   <!--预订-->
-  <view class="reserveBook">
-    <view class="showBox">
-      <view class="showTitle">预订</view>
-      <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
-        <block wx:for="{{reserveBook}}">
-          <template is="book" data="{{...item,img}}" />
-        </block>
-      </scroll-view>
+  <view wx:if="{{reserveBook.length != 0}}">
+    <view class="reserveBook">
+      <view class="showBox">
+        <view class="showTitle">预订</view>
+        <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
+          <block wx:for="{{reserveBook}}">
+            <template is="book" data="{{...item}}" />
+          </block>
+        </scroll-view>
+      </view>
     </view>
   </view>
 
   <!--推荐-->
-  <view class="recommendBook" wx:if="{{recommend}}">
-    <view class="showBox">
-      <view class="showTitle">推荐</view>
-      <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
-        <block wx:for="{{recommendBook}}">
-          <template is="book" data="{{...item,img}}" />
-        </block>
-      </scroll-view>
+  <view wx:if="{{recommendBook.length != 0}}">
+    <view class="recommendBook" wx:if="{{recommend}}">
+      <view class="showBox">
+        <view class="showTitle">推荐</view>
+        <scroll-view scroll-x="true" bindscroll="scroll" class="showBook">
+          <block wx:for="{{recommendBook}}">
+            <template is="book" data="{{...item}}" />
+          </block>
+        </scroll-view>
+      </view>
     </view>
   </view>
 </view>

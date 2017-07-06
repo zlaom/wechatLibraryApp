@@ -97,6 +97,7 @@ page {
   height: 200rpx;
   width: 140rpx;
   margin: 10rpx;
+  overflow: hidden;
 }
 
 .book image {

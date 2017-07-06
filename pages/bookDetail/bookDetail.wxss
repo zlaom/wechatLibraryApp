@@ -23,6 +23,7 @@ page {
   width: 210rpx;
   height: 300rpx;
   margin: 30rpx;
+  overflow: hidden;
 }
 
 .book image {

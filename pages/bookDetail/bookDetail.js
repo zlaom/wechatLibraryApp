@@ -1,7 +1,7 @@
 // bookDetail.js 2017/6/3
 const host = require('../../config.js').host2;
-const image = require('../../config.js').image;
 var QR = require("../../utils/qrcode.js");
+var util = require("../../utils/util.js");
 var app = getApp()
 Page({
   data: {
@@ -41,13 +41,9 @@ Page({
       success: function (res) {
         if (res.data) {
           console.log(res.data);
-          res.data.book.bookCover = image + res.data.book.bookCover;
-          for (var i = 0; i < res.data.relatedBooks.length; i++) {// 添加图片地址
-            res.data.relatedBooks[i].bookCover = image + res.data.relatedBooks[i].bookCover;
-          }
           that.setData({
-            book: res.data.book,
-            relatedBooks: res.data.relatedBooks,
+            book: util.imgChange(res.data.book),
+            relatedBooks: util.imgChange(res.data.relatedBooks),
             bookStatus: res.data.bookStatus,
             statusId: res.data.statusId
           })
@@ -78,6 +74,32 @@ Page({
           icon: 'fail'
         })
       }
+    });
+    wx.onSocketMessage(function (res) {
+      console.log(res.data);
+      var data = res.data;
+      var dataArray = data.split("_");
+      if (dataArray[0] == 'borrow') {
+        that.setData({
+          bookStatus: 'borrow'
+        })
+        getApp().globalData.dataChange = true;
+        wx.showToast({
+          title: '借书成功',
+          icon: 'success'
+        })
+      } else if (dataArray[0] == 'return') {
+        that.setData({
+          bookStatus: 'none',
+          statusId:'null'
+        })
+        getApp().globalData.dataChange = true;
+        wx.showToast({
+          title: '还书成功',
+          icon: 'success'
+        })
+      }
+
     });
   },
   // 首次渲染绘制状态二维码
@@ -122,11 +144,6 @@ Page({
         success: function (res) {
           //console.log(res.data)
           if (res.data.message == 'success') {
-            wx.hideLoading();
-            wx.showToast({
-              title: '预约成功',
-              icon: 'success'
-            })
             that.setData({
               bookStatus: "reserve",
             })
@@ -142,6 +159,10 @@ Page({
                 //绘制二维码
                 that.createQrCode(url, "mycanvas", size.w, size.h);
                 clearTimeout(st);
+                wx.showToast({
+                  title: '预约成功',
+                  icon: 'success'
+                })
               }, 50)
             }
             if (res.data.resources == 1) {// 若分配了书本资源则使数据中book.bookCan减一
@@ -150,6 +171,7 @@ Page({
               param[bookCan] = that.data.book.bookCan - 1;
               that.setData(param);
             }
+
           } else {// 错误提示
             wx.hideLoading();
             wx.showModal({

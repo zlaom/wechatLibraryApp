@@ -32,6 +32,7 @@ Page({
               messagesNum: res.data.messagesNum,
               messages: res.data.messages
             })
+            getApp().globalData.remindLevel=0;//更新提醒位
           },
           // 失败返回
           fail: function (res) {

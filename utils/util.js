@@ -1,3 +1,4 @@
+const image = require('../config.js').image;
 function formatTime(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
@@ -17,5 +18,45 @@ function formatNumber(n) {
 }
 
 module.exports = {
-  formatTime: formatTime
+  formatTime: formatTime,
+  //图片连接自适应
+  imgChange:function imgChange(books){
+    console.log(books);
+    if (books.length){
+      console.log("ok");
+      for (var i = 0; i < books.length; i++) {
+        //console.log(i);
+        if (books[i].bookCover) {
+          var data = books[i].bookCover.split(':');
+          //console.log(data);
+          if (data[0] != 'https') {
+            books[i].bookCover = image + books[i].bookCover;
+          }
+          continue;
+        }
+        if (books[i].sortCover) {
+          var data = books[i].sortCover.split(':');
+          if (data[0] != 'https') {
+            books[i].sortCover = image + books[i].sortCover;
+          }
+          continue;
+        }
+      }
+    }else{
+      if (books.bookCover) {
+        var data = books.bookCover.split(':');
+        if (data[0] != 'https') {
+          books.bookCover = image + books.bookCover;
+        }
+      }
+      if (books.sortCover) {
+        var data = books.sortCover.split(':');
+        if (data[0] != 'https') {
+          books.sortCover = image + books.sortCover;
+        }
+      }
+    }
+    console.log(books);
+    return books;
+  }
 }

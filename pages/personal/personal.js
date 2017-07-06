@@ -2,7 +2,7 @@
 //获取应用实例
 const websocket = require('../../config.js').host1;
 const host = require('../../config.js').host2;
-const image = require('../../config.js').image;
+var util = require("../../utils/util.js");
 
 var app = getApp()
 Page({
@@ -13,7 +13,7 @@ Page({
     recommendBook: [],
     recommend: false,
     remind: 0,
-    img: '',
+    remindLevel: 0,
     userId: ''
   },
   // 页面加载前
@@ -29,14 +29,7 @@ Page({
         wx.getUserInfo({
           success: function (res) {
             var userName = res.userInfo.nickName;// 获取用户名
-            that.setData({
-              img: image,
-              userId: userName
-            })
-            //console.log(userName);
-            // webSocket部分
-            //console.log("将要连接服务器。");
-           /* wx.connectSocket({
+            wx.connectSocket({
               url: websocket
             });
             wx.onSocketOpen(function (res) {
@@ -44,28 +37,71 @@ Page({
               wx.sendSocketMessage({
                 data: userName
               });
-            });*/
+            });
           }
         });
       }
     });
-    // webSocket接收部分
-   /* wx.onSocketMessage(function (res) {
-      wx.showModal({
-        title: '提示',
-        content: res.data,
-        success: function (res) {
-          if (res.confirm) {
-            //console.log('用户点击确定')
-            wx.navigateTo({
-              url: '/pages/news/news'
-            })
-          } else if (res.cancel) {
-            //console.log('用户点击取消')
+    wx.onSocketMessage(function (res) {
+      console.log(res.data);
+      var data = res.data;
+      var dataArray = data.split("_");
+      if (dataArray[0] == 'dataChange') {
+        getApp().globalData.dataChange = true;
+      } else if (dataArray[0] == 'message') {
+        wx.showModal({
+          title: '您有新的消息！',
+          content: dataArray[1] + '\n立即跳转个人消息面？',
+          success: function (res) {
+            if (res.confirm) {
+              //console.log('用户点击确定')
+              wx.navigateTo({
+                url: '/pages/news/news'
+              })
+            } else if (res.cancel) {
+              //console.log('用户点击取消')
+            }
           }
+        })
+      }
+
+    });
+    wx.onSocketClose(function (res) {
+      console.log('WebSocket 已关闭！')
+      wx.login({
+        success: function (res) {
+          wx.getUserInfo({
+            success: function (res) {
+              var userName = res.userInfo.nickName;// 获取用户名
+              //console.log(userName);
+              // webSocket部分
+              //console.log("将要连接服务器。");
+              wx.connectSocket({
+                url: websocket
+              });
+              wx.onSocketOpen(function (res) {
+                //连接成功发送当前用户名
+                wx.sendSocketMessage({
+                  data: userName
+                });
+              });
+            }
+          });
         }
-      })
-    });*/
+      });
+    });
+    wx.login({
+      success: function (res) {
+        wx.getUserInfo({
+          success: function (res) {
+            var userName = res.userInfo.nickName;// 获取用户名
+            that.setData({
+              userId: userName
+            })
+          }
+        });
+      }
+    });
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function (userInfo) {
       //更新数据
@@ -105,32 +141,17 @@ Page({
                 var reserveBook = res.data.reserveBook;
                 var recommendBook = res.data.recommendBook;
                 var remind = res.data.remind;
+                var remindLevel = res.data.remindLevel;
                 that.setData({
-                  borrowBook: borrowBook,
-                  reserveBook: reserveBook,
-                  recommendBook: recommendBook,
-                  remind: remind
+                  borrowBook: util.imgChange(borrowBook),
+                  reserveBook: util.imgChange(reserveBook),
+                  recommendBook: util.imgChange(recommendBook),
+                  remind: remind,
+                  remindLevel: remindLevel
                 }),
-                  //设置数据缓存
-                  /*wx.setStorage({
-                    key: "borrowBook",
-                    data: borrowBook
-                  }),
-                  wx.setStorage({
-                    key: "reserveBook",
-                    data: reserveBook
-                  }),
-                  wx.setStorage({
-                    key: "recommendBook",
-                    data: recommendBook
-                  }),
-                  wx.setStorage({
-                    key: "messageNum",
-                    data: remind
-                  })*/
-                  getApp().globalData.messageNum = remind;
+                getApp().globalData.messageNum = remind;
+                getApp().globalData.remindLevel = remindLevel;
                 wx.hideLoading();
-                console.log('666666666666666666666');
               },
               fail: function () {
                 wx.showModal({
@@ -147,7 +168,6 @@ Page({
                     }
                   }
                 })
-                console.log("err");
               }
             })
           }
@@ -178,11 +198,11 @@ Page({
           var recommendBook = res.data.recommendBook;
           var remind = res.data.remind;
           that.setData({
-            borrowBook: borrowBook,
-            reserveBook: reserveBook,
-            recommendBook: recommendBook,
+            borrowBook: util.imgChange(borrowBook),
+            reserveBook: util.imgChange(reserveBook),
+            recommendBook: util.imgChange(recommendBook),
             remind: remind
-          })
+          }),
           getApp().globalData.messageNum = remind;
           wx.hideLoading();
         },
@@ -205,10 +225,11 @@ Page({
         }
       })
       getApp().globalData.dataChange = false;
-    }else{
+    } else {
       //获取消息数
       that.setData({
-        remind: getApp().globalData.messageNum
+        remind: getApp().globalData.messageNum,
+        remindLevel: getApp().globalData.remindLevel
       })
 
     }
@@ -235,9 +256,9 @@ Page({
     })
   },
   // 页面关闭时
- /* onUnload: function () {
-    wx.closeSocket();
-  },*/
+  /* onUnload: function () {
+     wx.closeSocket();
+   },*/
 
   // 跳转书籍详情页面
   bookDetail: function (e) {

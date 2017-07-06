@@ -3,10 +3,10 @@
 <template name="oneBook">
   <view class="oneBook" data-bookId="{{bookId}}" catchtap="bookDetail">
     <view class="book">
-      <image src="{{cover}}" mode="widthFix"></image>
+      <image src="{{bookCover}}" mode="widthFix"></image>
     </view>
     <view class="bookSummary">
-      <view class="bookName">{{bookName}}<text class="bookAuthor">  {{bookAuthor}}</text></view>
+      <view class="bookName"><view class="bookTitle">{{bookName}}</view><text class="bookAuthor">  {{bookAuthor}}</text></view>
       <view class="bookAbstract">简介：{{bookAbstract}}</view>
       <view class="bookStatus">
         <view>馆藏：{{bookNum}}</view>

@@ -1,5 +1,6 @@
 const host = require('../../config.js').host2;
 const image = require('../../config.js').image;
+var util = require("../../utils/util.js");
 
 Page({
   data: {
@@ -30,11 +31,8 @@ Page({
         //获取将json对象赋值给books
         var books = res.data;
         if (res.data) {
-          for (var i = 0; i < res.data.length; i++) {
-            res.data[i].cover = image + res.data[i].cover;
-          }
           that.setData({
-            books: books
+            books: util.imgChange(books)
           });
         }
         wx.hideLoading();
