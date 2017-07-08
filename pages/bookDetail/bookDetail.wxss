@@ -16,7 +16,6 @@ page {
 /*书籍栏*/
 .oneBook {
   display: flex;
-  height: 350rpx;
 }
 
 .book {
@@ -32,34 +31,26 @@ page {
 
 .bookSummary {
   width: 520rpx;
-  height: 200rpx;
   margin-top: 30rpx;
 }
 
 .bookMessages {
-  height: 260rpx;
   width: 400rpx;
 }
 
 .bookAuthor {
-  height: 50rpx;
-  line-height: 50rpx;
   width: 400rpx;
   text-align: left;
   font-size: 24rpx;
 }
 
 .bookPress {
-  height: 50rpx;
-  line-height: 50rpx;
   width: 400rpx;
   text-align: left;
   font-size: 24rpx;
 }
 
 .bookSort {
-  height: 50rpx;
-  line-height: 50rpx;
   width: 400rpx;
   text-align: left;
   font-size: 24rpx;

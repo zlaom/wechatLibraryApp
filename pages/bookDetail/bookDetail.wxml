@@ -19,7 +19,7 @@
       <view class="bookSummary">
         <view class="bookMessages">
           <view class="booktName">{{book.bookTitle}}</view>
-          <view class="bookAuthor">作者：{{book.bookAuthor}}</view>
+          <view class="bookAuthor"><em>作者：</em>{{book.bookAuthor}}</view>
           <view class=" bookPress">出版社：{{book. bookPress}}</view>
           <view class="bookSort">类别：{{book.bookSorts}}</view>
         </view>
