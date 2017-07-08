@@ -1,5 +1,7 @@
 {
   "navigationBarBackgroundColor": "#2c3e50",
   "navigationBarTextStyle": "#ffffff",
-  "navigationBarTitleText": "书籍详情"
+  "navigationBarTitleText": "书籍详情",
+  "backgroundTextStyle": "dark",
+  "enablePullDownRefresh": true
 }

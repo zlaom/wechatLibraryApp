@@ -149,7 +149,7 @@ Page({
                   remind: remind,
                   remindLevel: remindLevel
                 }),
-                getApp().globalData.messageNum = remind;
+                  getApp().globalData.messageNum = remind;
                 getApp().globalData.remindLevel = remindLevel;
                 wx.hideLoading();
               },
@@ -203,7 +203,7 @@ Page({
             recommendBook: util.imgChange(recommendBook),
             remind: remind
           }),
-          getApp().globalData.messageNum = remind;
+            getApp().globalData.messageNum = remind;
           wx.hideLoading();
         },
         fail: function () {
@@ -259,6 +259,97 @@ Page({
   /* onUnload: function () {
      wx.closeSocket();
    },*/
+
+  //下拉刷新
+  onPullDownRefresh: function () {
+    var that = this;
+    wx.login({
+      success: function (res) {
+        wx.getUserInfo({
+          success: function (res) {
+            var userName = res.userInfo.nickName;// 获取用户名
+            that.setData({
+              userId: userName
+            })
+          }
+        });
+      }
+    });
+    //调用应用实例的方法获取全局数据
+    app.getUserInfo(function (userInfo) {
+      //更新数据
+      that.setData({
+        userInfo: userInfo,
+      });
+      // 网络请求查询用户
+      wx.request({
+        url: host + '/signup/ifExist',
+        data: {
+          userId: userInfo.nickName,
+        },
+        method: 'GET',
+        success: function (res) {
+          if (res.data == "notExist") {// 若用户不存在则跳转注册页面
+            console.log("跳转");
+            wx.redirectTo({
+              url: '/pages/signup/signup'
+            })
+          } else {
+            console.log("设置缓存");
+            wx.setStorage({
+              key: "userId",
+              data: userInfo.nickName
+            });
+            // 设置全局变量
+            getApp().globalData.userId = userInfo.nickName;
+
+            // 网络请求个人中心数据
+            wx.request({
+              url: host + '/personal?userId=' + userInfo.nickName,//传给服务器用户ID
+              data: {},
+              method: 'GET',
+              success: function (res) {
+                /*设置page.data中的borrowBook、reserveBook、recommendBook数据*/
+                var borrowBook = res.data.borrowBook;
+                var reserveBook = res.data.reserveBook;
+                var recommendBook = res.data.recommendBook;
+                var remind = res.data.remind;
+                var remindLevel = res.data.remindLevel;
+                that.setData({
+                  borrowBook: util.imgChange(borrowBook),
+                  reserveBook: util.imgChange(reserveBook),
+                  recommendBook: util.imgChange(recommendBook),
+                  remind: remind,
+                  remindLevel: remindLevel
+                }),
+                getApp().globalData.messageNum = remind;
+                getApp().globalData.remindLevel = remindLevel;
+                wx.stopPullDownRefresh()
+              },
+              fail: function () {
+                wx.showModal({
+                  title: '提示',
+                  content: res.data,
+                  success: function (res) {
+                    if (res.confirm) {
+                      console.log('连接失败，是否刷新？')
+                      wx.navigateTo({
+                        url: '/pages/personal/personal'
+                      })
+                    } else if (res.cancel) {
+                      console.log('用户点击取消')
+                    }
+                  }
+                })
+              }
+            })
+          }
+        }
+      })
+    })
+  },
+
+
 
   // 跳转书籍详情页面
   bookDetail: function (e) {

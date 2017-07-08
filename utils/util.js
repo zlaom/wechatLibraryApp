@@ -21,7 +21,7 @@ module.exports = {
   formatTime: formatTime,
   //图片连接自适应
   imgChange:function imgChange(books){
-    console.log(books);
+   // console.log(books);
     if (books.length){
       console.log("ok");
       for (var i = 0; i < books.length; i++) {
@@ -56,7 +56,7 @@ module.exports = {
         }
       }
     }
-    console.log(books);
+    //console.log(books);
     return books;
   }
 }

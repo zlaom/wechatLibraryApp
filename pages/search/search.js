@@ -20,7 +20,7 @@ Page({
       duration: 20000
     })
     var that = this;
-    console.log(query.content);
+    //console.log(query.content);
     var content = query.content;
     if (content != 'undefined') {
       that.setData({
@@ -35,6 +35,7 @@ Page({
         method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
         success: function (res) {
+          wx.hideLoading();
           var searchResult = res.data;
           if (searchResult != 'not found') {// 当返回结果不为not found时更新数据，不然设置内容标志位为空用于前端界面显示判断
             that.setData({
@@ -46,10 +47,10 @@ Page({
               content: '',
             })
           }
-          wx.hideLoading();
         },
         // 失败返回
         fail: function () {
+          wx.hideLoading();
           console.log('fail');
           wx.showToast({
             title: '搜索失败',
@@ -58,8 +59,8 @@ Page({
         }
       })
     }
-    wx.hideLoading();
   },
+  //触底刷新事件
   onReachBottom: function () {
     var that = this;
     if (that.data.havaData) {
@@ -81,19 +82,19 @@ Page({
           console.log('666666')
           console.log(searchResult.length);
           if (searchResult != 'not found') {// 当返回结果不为not found时更新数据，不然设置内容标志位为空用于前端界面显示判断
-              var thisBooks = that.data.searchResult;
-              searchResult.forEach(function (book) {
-                thisBooks.push(book);
-              })
+            var thisBooks = that.data.searchResult;
+            searchResult.forEach(function (book) {
+              thisBooks.push(book);
+            })
+            that.setData({
+              searchResult: util.imgChange(thisBooks),
+              skip: that.data.skip + searchResult.length
+            });
+            if (searchResult.length == 1) {
               that.setData({
-                searchResult: util.imgChange(thisBooks),
-                skip: that.data.skip + searchResult.length
-              });
-              if (searchResult.length == 1) {
-                that.setData({
-                  havaData: false
-                })
-              }
+                havaData: false
+              })
+            }
           } else {
             that.setData({
               havaData: false
@@ -103,6 +104,7 @@ Page({
         },
         // 失败返回
         fail: function () {
+          wx.hideLoading();
           console.log('fail');
           wx.showToast({
             title: '搜索失败',
@@ -112,6 +114,7 @@ Page({
       })
     }
   },
+  //点击索搜按钮事件
   bookSearch: function () {
     wx.showToast({// 消息显示
       title: '搜索中',
@@ -123,7 +126,7 @@ Page({
     var content = that.data.searchContent;
     that.setData({
       showHistory: true,
-      skip:0,
+      skip: 0,
       havaData: true
     })
     //设置历史记录
@@ -165,6 +168,7 @@ Page({
         method: 'GET', // OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE, CONNECT
         // header: {}, // 设置请求的 header
         success: function (res) {
+          wx.hideLoading();
           var searchResult = res.data;
           if (searchResult != 'not found') {// 当返回结果不为not found时更新数据，不然设置内容标志位为空用于前端界面显示判断
             that.setData({
@@ -176,19 +180,19 @@ Page({
               content: '',
             })
           }
-          wx.hideLoading();
         },
         // 失败返回
         fail: function () {
+          wx.hideLoading();
           console.log('fail');
           wx.showToast({
             title: '搜索失败',
             icon: 'fail'
           })
         }
+
       })
     }
-    wx.hideLoading();
   },
   inputSearchContent: function (e) {
     var that = this;

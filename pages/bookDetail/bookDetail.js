@@ -12,7 +12,8 @@ Page({
     maskHidden: true,
     imagePath: '',
     statusId: 'null',//默认二维码生成文本
-    reqStatus:false
+    reqStatus: false,
+    resources:0
   },
   // 开启页面前
   onLoad: function (option) {
@@ -29,7 +30,7 @@ Page({
       })
     });
     // 向服务器请求书籍详情页面相关数据
-    console.log('用户名'+getApp().globalData.userId);
+    console.log('用户名' + getApp().globalData.userId);
     wx.request({
       url: host + '/library/bookDetail',
       data: {
@@ -45,7 +46,8 @@ Page({
             book: util.imgChange(res.data.book),
             relatedBooks: util.imgChange(res.data.relatedBooks),
             bookStatus: res.data.bookStatus,
-            statusId: res.data.statusId
+            statusId: res.data.statusId,
+            resources: res.data.resources
           })
         }
         var url = res.data.statusId;// 获取状态Id
@@ -91,7 +93,7 @@ Page({
       } else if (dataArray[0] == 'return') {
         that.setData({
           bookStatus: 'none',
-          statusId:'null'
+          statusId: 'null'
         })
         getApp().globalData.dataChange = true;
         wx.showToast({
@@ -102,6 +104,64 @@ Page({
 
     });
   },
+  //下拉刷新
+  onPullDownRefresh: function () {
+      var that = this;
+      app.getUserInfo(function (userInfo) {
+        //更新数据
+        that.setData({
+          userInfo: userInfo
+        })
+      });
+      // 向服务器请求书籍详情页面相关数据
+      console.log('用户名' + getApp().globalData.userId);
+      wx.request({
+        url: host + '/library/bookDetail',
+        data: {
+          bookId: that.data.book.bookId,
+          userId: getApp().globalData.userId
+        },
+        method: 'GET',
+        // 成功返回
+        success: function (res) {
+          if (res.data) {
+            console.log(res.data);
+            that.setData({
+              book: util.imgChange(res.data.book),
+              relatedBooks: util.imgChange(res.data.relatedBooks),
+              bookStatus: res.data.bookStatus,
+              statusId: res.data.statusId,
+              resources: res.data.resources
+            })
+          }
+          var url = res.data.statusId;// 获取状态Id
+          if (url != "null") {// 若statusId存在
+            that.setData({
+              statusId: url,
+            })
+            var st = setTimeout(function () {
+              var size = that.setCanvasSize();
+              //绘制二维码
+              that.createQrCode(url, "mycanvas", size.w, size.h);
+              clearTimeout(st);
+            }, 50)
+          }
+          that.setData({
+            reqStatus: true
+          })
+          wx.stopPullDownRefresh()
+        },
+        // 失败返回
+        fail: function () {
+          wx.stopPullDownRefresh()
+          //console.log('fail');
+          wx.showToast({
+            title: '加载失败',
+            icon: 'fail'
+          })
+        }
+      });
+    },
   // 首次渲染绘制状态二维码
   onReady: function () {
     var initUrl = this.data.statusId;
@@ -120,14 +180,14 @@ Page({
   // 书籍预约操作
   reserve: function (e) {
     var that = this;
-    if (that.data.reqStatus){
+    if (that.data.reqStatus) {
       wx.showToast({// 消息显示
         title: '预约中',
         icon: 'loading',
         duration: 20000
       })
       that.setData({
-        reqStatus:false
+        reqStatus: false
       })
       wx.request({// 网络请求
         url: host + '/library/bookReserve',
@@ -146,6 +206,7 @@ Page({
           if (res.data.message == 'success') {
             that.setData({
               bookStatus: "reserve",
+              resources: res.data.resources
             })
             getApp().globalData.dataChange = true;
             var url = res.data.statusId;// 获取状态Id
@@ -196,12 +257,12 @@ Page({
         }
       })
     }
-  
+
   },
   // 取消预约操作
   cancelReserve: function (e) {
     var that = this;
-  
+
     if (that.data.reqStatus) {
       wx.showToast({// 消息提醒
         title: '取消中',
@@ -263,7 +324,7 @@ Page({
 
       })
     }
-   
+
   },
   // 反回个人中心
   returnPersonal: function (e) {

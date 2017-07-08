@@ -2,7 +2,9 @@
 <!--相关书籍中单本书的模板-->
 <template name="relatedBook">
   <view class="relatedBook" data-bookId="{{bookId}}" catchtap="bookDetail">
-     <view class="bookimg"><image src="{{bookCover}}" mode="widthFix"></image></view>
+    <view class="bookimg">
+      <image src="{{bookCover}}" mode="widthFix"></image>
+    </view>
     <view> {{bookTitle}} </view>
   </view>
 </template>
@@ -49,6 +51,9 @@
     <view wx:if="{{bookStatus == 'none'}}">
       <button type="text" type="primary" data-bookId="{{book.bookId}}" ontap="reserve">预约</button>
     </view>
+     <view wx:elif="{{resources==0}}">
+      <button type="text" type="default" data-bookId="{{book.bookId}}" ontap="cancelReserve">取消等待资源</button>
+    </view>
     <view wx:elif="{{bookStatus == 'reserve'}}">
       <button type="text" type="default" data-bookId="{{book.bookId}}" ontap="cancelReserve">取消预约</button>
     </view>
@@ -61,7 +66,13 @@
     <button type="text" type="default" catchtap="returnPersonal">返回个人中心</button>
   </view>
   <!--绘制相关状态二维码-->
-  <view class="container-box" wx:if="{{statusId != 'null'}}">
+  <view class="container-box" wx:if="{{statusId != 'null'&&resources!=0}}">
+    <view wx:if="{{bookStatus == 'reserve'}}">
+      <view class="codeTex">借书二维码</view>
+    </view>
+    <view wx:elif="{{bookStatus == 'borrow'}}">
+      <view class="codeTex">还书二维码</view>
+    </view>
     <view class="img-box">
       <canvas style="width: 686rpx;height: 686rpx;" canvas-id="mycanvas" />
       <!--<image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image>-->
